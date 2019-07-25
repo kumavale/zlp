@@ -26,17 +26,19 @@ namespace zerodori_listening_player
             NEXT
         }
 
-        Timer timer_ = new Timer();
+        Timer timer_main  = new Timer();
+        Timer timer_label = new Timer();
 
-        bool is_loop;
-        bool playing;
+        bool is_loop;                      // ループ再生のon/off
+        bool playing;                      // 再生中か否か
+        byte freeze = 0;                   // タイトルラベルをスクロールしない時間
 
-        const string mp3_dir = @"sounds";
-        string   mp3_file;
-        string[] mp3_file_paths;
-        int      mp3_now;         // 現在選択されている番号
-        int      mp3_length;      // 再生時間(秒)
-        int      mp3_count;       // 音声ファイルの最大数(追加可能)
+        const string mp3_dir = @"sounds";  // 音声ファイルを格納するディレクトリ
+        string   mp3_file;                 // 現在選択されている音声ファイル名
+        string[] mp3_file_paths;           // 全ての音声ファイルパス
+        int      mp3_now;                  // 現在選択されている番号
+        int      mp3_length;               // 再生時間(秒)
+        int      mp3_count;                // 音声ファイルの最大数(追加可能)
 
 
         WindowsMediaPlayer mp = new WindowsMediaPlayer();
@@ -70,8 +72,9 @@ namespace zerodori_listening_player
 				}
 			};
 
-            timer_.Interval = 100;
-            timer_.Tick += delegate {
+            // メインタイマーの設定
+            timer_main.Interval = 100;
+            timer_main.Tick += delegate {
                 // 再生位置, 再生時間の表示
                 if(mp.playState == WMPPlayState.wmppsPlaying || mp.playState == WMPPlayState.wmppsPaused) {
                     bar_seek.Maximum = (int)(mp.controls.currentItem.duration);
@@ -85,7 +88,27 @@ namespace zerodori_listening_player
                     mp.controls.play();
                 }
             };
-            timer_.Start();
+            timer_main.Start();
+
+            // ラベルスクロール用タイマーの設定
+            timer_label.Interval = 200;
+            timer_main.Tick += delegate {
+                if (label_title.Size.Width > this.Width)
+                {
+                    if (label_title.Left < this.Width - label_title.Size.Width - 10 - 40)
+                    {
+                        freeze = 0;
+                        label_title.Left = 10;
+                    }
+                    else if(label_title.Left == 10 && freeze < 15)
+                    {
+                        ++freeze;
+                    }
+                    else
+                        label_title.Left -= 1;
+                }
+            };
+            timer_label.Start();
 
 
             // レイアウトの調整
@@ -144,13 +167,14 @@ namespace zerodori_listening_player
         private void change_mp3()
         {
             mp3_file = mp3_now.ToString("000") + ".mp3";
-            //mp.URL = mp3_dir + "\\" + mp3_file;
             mp.URL = mp3_file_paths[mp3_now - 1];
             mp.settings.rate = double.Parse(list_speed.Text);
             f = sh.NameSpace(Path.GetDirectoryName(mp.URL));
             fi = f.ParseName(mp3_file);
             mp3_number.Text = mp3_now.ToString("000");
             playing = false;
+            label_title.Left = 10;
+            freeze = 0;
         }
 
         private void button_next_Click(object sender, EventArgs e)
