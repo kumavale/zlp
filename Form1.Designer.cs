@@ -51,53 +51,68 @@
             // 
             // button_start_stop
             // 
+            this.button_start_stop.BackColor = System.Drawing.Color.Transparent;
+            this.button_start_stop.FlatAppearance.BorderSize = 0;
+            this.button_start_stop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_start_stop.Image = ((System.Drawing.Image)(resources.GetObject("button_start_stop.Image")));
             this.button_start_stop.Location = new System.Drawing.Point(113, 80);
             this.button_start_stop.Margin = new System.Windows.Forms.Padding(0);
             this.button_start_stop.Name = "button_start_stop";
             this.button_start_stop.Size = new System.Drawing.Size(32, 32);
             this.button_start_stop.TabIndex = 0;
-            this.button_start_stop.Text = "▷";
-            this.button_start_stop.UseVisualStyleBackColor = true;
+            this.button_start_stop.UseVisualStyleBackColor = false;
             this.button_start_stop.Click += new System.EventHandler(this.button_start_stop_Click);
             // 
             // button_rewind
             // 
+            this.button_rewind.BackColor = System.Drawing.Color.Transparent;
+            this.button_rewind.FlatAppearance.BorderSize = 0;
+            this.button_rewind.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_rewind.Image = ((System.Drawing.Image)(resources.GetObject("button_rewind.Image")));
             this.button_rewind.Location = new System.Drawing.Point(63, 80);
             this.button_rewind.Name = "button_rewind";
             this.button_rewind.Size = new System.Drawing.Size(32, 32);
             this.button_rewind.TabIndex = 1;
-            this.button_rewind.Text = "<";
-            this.button_rewind.UseVisualStyleBackColor = true;
+            this.button_rewind.UseVisualStyleBackColor = false;
             this.button_rewind.Click += new System.EventHandler(this.button_rewind_Click);
             // 
             // button_forward
             // 
+            this.button_forward.BackColor = System.Drawing.Color.Transparent;
+            this.button_forward.FlatAppearance.BorderSize = 0;
+            this.button_forward.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_forward.Image = ((System.Drawing.Image)(resources.GetObject("button_forward.Image")));
             this.button_forward.Location = new System.Drawing.Point(163, 80);
             this.button_forward.Name = "button_forward";
             this.button_forward.Size = new System.Drawing.Size(32, 32);
             this.button_forward.TabIndex = 2;
-            this.button_forward.Text = ">";
-            this.button_forward.UseVisualStyleBackColor = true;
+            this.button_forward.UseVisualStyleBackColor = false;
             this.button_forward.Click += new System.EventHandler(this.button_forward_Click);
             // 
             // button_next
             // 
+            this.button_next.BackColor = System.Drawing.Color.Transparent;
+            this.button_next.FlatAppearance.BorderSize = 0;
+            this.button_next.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_next.Image = ((System.Drawing.Image)(resources.GetObject("button_next.Image")));
             this.button_next.Location = new System.Drawing.Point(213, 80);
             this.button_next.Name = "button_next";
             this.button_next.Size = new System.Drawing.Size(32, 32);
             this.button_next.TabIndex = 3;
-            this.button_next.Text = ">|";
-            this.button_next.UseVisualStyleBackColor = true;
+            this.button_next.UseVisualStyleBackColor = false;
             this.button_next.Click += new System.EventHandler(this.button_next_Click);
             // 
             // button_prev
             // 
+            this.button_prev.BackColor = System.Drawing.Color.Transparent;
+            this.button_prev.FlatAppearance.BorderSize = 0;
+            this.button_prev.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_prev.Image = ((System.Drawing.Image)(resources.GetObject("button_prev.Image")));
             this.button_prev.Location = new System.Drawing.Point(13, 80);
             this.button_prev.Name = "button_prev";
             this.button_prev.Size = new System.Drawing.Size(32, 32);
             this.button_prev.TabIndex = 4;
-            this.button_prev.Text = "|<";
-            this.button_prev.UseVisualStyleBackColor = true;
+            this.button_prev.UseVisualStyleBackColor = false;
             this.button_prev.Click += new System.EventHandler(this.button_prev_Click);
             // 
             // bar_seek
@@ -134,12 +149,15 @@
             // 
             // button_loop
             // 
+            this.button_loop.BackColor = System.Drawing.Color.Transparent;
+            this.button_loop.FlatAppearance.BorderSize = 0;
+            this.button_loop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_loop.Image = ((System.Drawing.Image)(resources.GetObject("button_loop.Image")));
             this.button_loop.Location = new System.Drawing.Point(263, 80);
             this.button_loop.Name = "button_loop";
             this.button_loop.Size = new System.Drawing.Size(32, 32);
             this.button_loop.TabIndex = 9;
-            this.button_loop.Text = "↺";
-            this.button_loop.UseVisualStyleBackColor = true;
+            this.button_loop.UseVisualStyleBackColor = false;
             this.button_loop.Click += new System.EventHandler(this.button_loop_Click);
             // 
             // label1
