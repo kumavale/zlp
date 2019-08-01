@@ -35,6 +35,7 @@ namespace zerodori_listening_player
         bool is_loop;                      // ループ再生のon/off
         bool playing;                      // 再生中か否か
         byte freeze = 0;                   // タイトルラベルをスクロールしない時間
+        int  speed_idx;                    // 再生スピードのインデックスを管理
 
         const string mp3_dir = @"sounds";  // 音声ファイルを格納するディレクトリ
         string mp3_file;                 // 現在選択されている音声ファイル名
@@ -135,7 +136,7 @@ namespace zerodori_listening_player
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
 
             // 初期値の指定
-            list_speed.SelectedIndex = 2; // 1.0
+            speed_idx = list_speed.SelectedIndex = 2; // 1.0
             is_loop = false;
             playing = false;
             mp3_now = 1;
@@ -158,7 +159,7 @@ namespace zerodori_listening_player
             if (mp3_now > mp3_count)
                 mp3_now = 1;
             mp3_file = Path.GetFileName(mp3_file_paths[mp3_now - 1]);
-            list_speed.SelectedIndex = int.Parse(ConfigurationManager.AppSettings["speed"]);
+            speed_idx = list_speed.SelectedIndex = int.Parse(ConfigurationManager.AppSettings["speed"]);
             mp.settings.volume = int.Parse(ConfigurationManager.AppSettings["volume"]);
             bar_volume.Value = mp.settings.volume;
             is_loop = bool.Parse(ConfigurationManager.AppSettings["loop"]);
@@ -321,6 +322,26 @@ namespace zerodori_listening_player
             else if ((keyData & Keys.KeyCode) == Keys.Right)
             {
                 forward();
+                return true;
+            }
+            // 上キーで スピードUp
+            else if ((keyData & Keys.KeyCode) == Keys.Up)
+            {
+                ++speed_idx;
+                if(speed_idx >= list_speed.MaxDropDownItems - 1)
+                    speed_idx =  list_speed.MaxDropDownItems - 2;
+                list_speed.SelectedIndex = speed_idx;
+                mp.settings.rate = double.Parse(list_speed.Text);
+                return true;
+            }
+            // 下キーで スピードDown
+            else if ((keyData & Keys.KeyCode) == Keys.Down)
+            {
+                --speed_idx;
+                if(speed_idx < 0)
+                    speed_idx = 0;
+                list_speed.SelectedIndex = speed_idx;
+                mp.settings.rate = double.Parse(list_speed.Text);
                 return true;
             }
             // Pキーで 前の音声
