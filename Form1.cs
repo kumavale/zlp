@@ -86,6 +86,12 @@ namespace zerodori_listening_player
                     bar_seek.Value = (int)(mp.controls.currentPosition);
                     time_now.Text = ((int)mp.controls.currentPosition / 60).ToString("0") + ":" + ((int)mp.controls.currentPosition % 60).ToString("00");
                 }
+                // 再生が終了してたら 初めから再生できるようにする
+                else if (mp.playState == WMPPlayState.wmppsStopped) 
+                {
+                    playing = false;
+                    mp_ctl();
+                }
 
                 // ループ再生
                 if (is_loop && mp.playState == WMPPlayState.wmppsStopped)
@@ -340,6 +346,15 @@ namespace zerodori_listening_player
             else if ((keyData & Keys.KeyCode) == Keys.Space)
             {
                 playing = !playing;
+                mp_ctl();
+                return true;
+            }
+            // エンターキーで restart
+            else if ((keyData & Keys.KeyCode) == Keys.Enter)
+            {
+                mp.controls.currentPosition = 0;
+                bar_seek.Value = 0;
+                playing = true;
                 mp_ctl();
                 return true;
             }
