@@ -44,6 +44,7 @@
             this.time_length = new System.Windows.Forms.Label();
             this.list_speed = new System.Windows.Forms.ComboBox();
             this.label_title = new System.Windows.Forms.Label();
+            this.button_auto = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bar_seek)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar_volume)).BeginInit();
@@ -55,7 +56,7 @@
             this.button_start_stop.FlatAppearance.BorderSize = 0;
             this.button_start_stop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_start_stop.Image = ((System.Drawing.Image)(resources.GetObject("button_start_stop.Image")));
-            this.button_start_stop.Location = new System.Drawing.Point(113, 80);
+            this.button_start_stop.Location = new System.Drawing.Point(90, 80);
             this.button_start_stop.Margin = new System.Windows.Forms.Padding(0);
             this.button_start_stop.Name = "button_start_stop";
             this.button_start_stop.Size = new System.Drawing.Size(32, 32);
@@ -69,7 +70,7 @@
             this.button_rewind.FlatAppearance.BorderSize = 0;
             this.button_rewind.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_rewind.Image = ((System.Drawing.Image)(resources.GetObject("button_rewind.Image")));
-            this.button_rewind.Location = new System.Drawing.Point(63, 80);
+            this.button_rewind.Location = new System.Drawing.Point(48, 80);
             this.button_rewind.Name = "button_rewind";
             this.button_rewind.Size = new System.Drawing.Size(32, 32);
             this.button_rewind.TabIndex = 1;
@@ -82,7 +83,7 @@
             this.button_forward.FlatAppearance.BorderSize = 0;
             this.button_forward.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_forward.Image = ((System.Drawing.Image)(resources.GetObject("button_forward.Image")));
-            this.button_forward.Location = new System.Drawing.Point(163, 80);
+            this.button_forward.Location = new System.Drawing.Point(132, 80);
             this.button_forward.Name = "button_forward";
             this.button_forward.Size = new System.Drawing.Size(32, 32);
             this.button_forward.TabIndex = 2;
@@ -95,7 +96,7 @@
             this.button_next.FlatAppearance.BorderSize = 0;
             this.button_next.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_next.Image = ((System.Drawing.Image)(resources.GetObject("button_next.Image")));
-            this.button_next.Location = new System.Drawing.Point(213, 80);
+            this.button_next.Location = new System.Drawing.Point(174, 80);
             this.button_next.Name = "button_next";
             this.button_next.Size = new System.Drawing.Size(32, 32);
             this.button_next.TabIndex = 3;
@@ -108,7 +109,7 @@
             this.button_prev.FlatAppearance.BorderSize = 0;
             this.button_prev.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_prev.Image = ((System.Drawing.Image)(resources.GetObject("button_prev.Image")));
-            this.button_prev.Location = new System.Drawing.Point(13, 80);
+            this.button_prev.Location = new System.Drawing.Point(6, 80);
             this.button_prev.Name = "button_prev";
             this.button_prev.Size = new System.Drawing.Size(32, 32);
             this.button_prev.TabIndex = 4;
@@ -153,7 +154,7 @@
             this.button_loop.FlatAppearance.BorderSize = 0;
             this.button_loop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_loop.Image = ((System.Drawing.Image)(resources.GetObject("button_loop.Image")));
-            this.button_loop.Location = new System.Drawing.Point(263, 80);
+            this.button_loop.Location = new System.Drawing.Point(216, 80);
             this.button_loop.Name = "button_loop";
             this.button_loop.Size = new System.Drawing.Size(32, 32);
             this.button_loop.TabIndex = 9;
@@ -227,11 +228,25 @@
             this.label_title.TabIndex = 16;
             this.label_title.Text = "001_Part 2とは？_Directions";
             // 
+            // button_auto
+            // 
+            this.button_auto.BackColor = System.Drawing.Color.Transparent;
+            this.button_auto.FlatAppearance.BorderSize = 0;
+            this.button_auto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_auto.Image = ((System.Drawing.Image)(resources.GetObject("button_auto.Image")));
+            this.button_auto.Location = new System.Drawing.Point(258, 80);
+            this.button_auto.Name = "button_auto";
+            this.button_auto.Size = new System.Drawing.Size(32, 32);
+            this.button_auto.TabIndex = 17;
+            this.button_auto.UseVisualStyleBackColor = false;
+            this.button_auto.Click += new System.EventHandler(this.button_auto_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(304, 153);
+            this.Controls.Add(this.button_auto);
             this.Controls.Add(this.label_title);
             this.Controls.Add(this.list_speed);
             this.Controls.Add(this.time_length);
@@ -277,6 +292,7 @@
         private System.Windows.Forms.Label time_length;
         private System.Windows.Forms.ComboBox list_speed;
         private System.Windows.Forms.Label label_title;
+        private System.Windows.Forms.Button button_auto;
     }
 }
 

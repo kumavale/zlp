@@ -34,15 +34,16 @@ namespace zerodori_listening_player
 
         bool is_loop;                      // ループ再生のon/off
         bool playing;                      // 再生中か否か
+        bool auto_play;                    // 自動で次の音声へ
         byte freeze = 0;                   // タイトルラベルをスクロールしない時間
         int  speed_idx;                    // 再生スピードのインデックスを管理
 
         const string mp3_dir = @"sounds";  // 音声ファイルを格納するディレクトリ
-        string mp3_file;                 // 現在選択されている音声ファイル名
+        string mp3_file;                   // 現在選択されている音声ファイル名
         string[] mp3_file_paths;           // 全ての音声ファイルパス
-        int mp3_now;                  // 現在選択されている番号
-        int mp3_length;               // 再生時間(秒)
-        int mp3_count;                // 音声ファイルの最大数(追加可能)
+        int mp3_now;                       // 現在選択されている番号
+        int mp3_length;                    // 再生時間(秒)
+        int mp3_count;                     // 音声ファイルの最大数(追加可能)
 
 
         WindowsMediaPlayer mp = new WindowsMediaPlayer();
@@ -75,6 +76,17 @@ namespace zerodori_listening_player
                 }
             };
 
+            // ボタンをマウスオーバー時のテキスト表示
+            ToolTip tt = new ToolTip();
+            tt.InitialDelay = 0;
+            tt.SetToolTip(button_prev,       "prev");
+            tt.SetToolTip(button_rewind,     "rewind");
+            tt.SetToolTip(button_start_stop, "start/stop");
+            tt.SetToolTip(button_forward,    "forward");
+            tt.SetToolTip(button_next,       "next");
+            tt.SetToolTip(button_loop,       "loop");
+            tt.SetToolTip(button_auto,       "auto");
+
             // メインタイマーの設定
             timer_main.Interval = 100;
             timer_main.Tick += delegate
@@ -92,6 +104,14 @@ namespace zerodori_listening_player
                 {
                     playing = false;
                     mp_ctl();
+
+                    // 自動再生が ture なら次の音声へ
+                    if (auto_play)
+                    {
+                        shift_sound(SHIFT.NEXT);
+                        playing = true;
+                        mp_ctl();
+                    }
                 }
 
                 // ループ再生
@@ -137,9 +157,10 @@ namespace zerodori_listening_player
 
             // 初期値の指定
             speed_idx = list_speed.SelectedIndex = 2; // 1.0
-            is_loop = false;
-            playing = false;
-            mp3_now = 1;
+            is_loop   = false;
+            playing   = false;
+            auto_play = false;
+            mp3_now   = 1;
 
             // 音声ファイル一覧の読み込み
             mp3_count = Directory.GetFiles(mp3_dir, "*.mp3", SearchOption.AllDirectories).Length;
@@ -164,6 +185,8 @@ namespace zerodori_listening_player
             bar_volume.Value = mp.settings.volume;
             is_loop = bool.Parse(ConfigurationManager.AppSettings["loop"]);
             button_loop.BackColor = is_loop ? Color.LightGray : SystemColors.Control;
+            auto_play = bool.Parse(ConfigurationManager.AppSettings["auto"]);
+            button_auto.BackColor = auto_play ? Color.LightGray : SystemColors.Control;
             mp.URL = mp3_file_paths[mp3_now - 1];
 
             init();
@@ -363,6 +386,13 @@ namespace zerodori_listening_player
                 button_loop.BackColor = is_loop ? Color.LightGray : SystemColors.Control;
                 return true;
             }
+            // Aキーで 自動再生 on/off
+            else if ((keyData & Keys.KeyCode) == Keys.A)
+            {
+                auto_play = !auto_play;
+                button_auto.BackColor = auto_play ? Color.LightGray : SystemColors.Control;
+                return true;
+            }
             // スペースキーでstart/stop
             else if ((keyData & Keys.KeyCode) == Keys.Space)
             {
@@ -455,8 +485,15 @@ namespace zerodori_listening_player
             cfg.AppSettings.Settings["speed"].Value = list_speed.SelectedIndex.ToString();
             cfg.AppSettings.Settings["volume"].Value = mp.settings.volume.ToString();
             cfg.AppSettings.Settings["loop"].Value = is_loop.ToString();
+            cfg.AppSettings.Settings["auto"].Value = auto_play.ToString();
 
             cfg.Save();
+        }
+
+        private void button_auto_Click(object sender, EventArgs e)
+        {
+            auto_play = !auto_play;
+            button_auto.BackColor = auto_play ? Color.LightGray : SystemColors.Control;
         }
     }
 
