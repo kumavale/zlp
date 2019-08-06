@@ -404,11 +404,13 @@ namespace zerodori_listening_player
             // エンターキーで restart
             else if ((keyData & Keys.KeyCode) == Keys.Enter)
             {
-                mp.controls.currentPosition = 0;
-                bar_seek.Value = 0;
-                playing = true;
-                mp_ctl();
-                return true;
+                if (!mp3_number.Focused) {
+                    mp.controls.currentPosition = 0;
+                    bar_seek.Value = 0;
+                    playing = true;
+                    mp_ctl();
+                    return true;
+                }
             }
 
             return base.ProcessDialogKey(keyData);
