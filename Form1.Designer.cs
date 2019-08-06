@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button_start_stop = new System.Windows.Forms.Button();
             this.button_rewind = new System.Windows.Forms.Button();
@@ -45,9 +46,12 @@
             this.list_speed = new System.Windows.Forms.ComboBox();
             this.label_title = new System.Windows.Forms.Label();
             this.button_auto = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.top_most = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.bar_seek)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar_volume)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button_start_stop
@@ -241,11 +245,26 @@
             this.button_auto.UseVisualStyleBackColor = false;
             this.button_auto.Click += new System.EventHandler(this.button_auto_Click);
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.top_most});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 48);
+            // 
+            // top_most
+            // 
+            this.top_most.Name = "top_most";
+            this.top_most.Size = new System.Drawing.Size(180, 22);
+            this.top_most.Text = "TopMost";
+            this.top_most.Click += new System.EventHandler(this.top_most_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(304, 153);
+            this.ContextMenuStrip = this.contextMenuStrip1;
             this.Controls.Add(this.button_auto);
             this.Controls.Add(this.label_title);
             this.Controls.Add(this.list_speed);
@@ -270,6 +289,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.bar_seek)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar_volume)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -293,6 +313,8 @@
         private System.Windows.Forms.ComboBox list_speed;
         private System.Windows.Forms.Label label_title;
         private System.Windows.Forms.Button button_auto;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem top_most;
     }
 }
 

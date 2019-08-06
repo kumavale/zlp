@@ -36,7 +36,7 @@ namespace zerodori_listening_player
         bool playing;                      // 再生中か否か
         bool auto_play;                    // 自動で次の音声へ
         byte freeze = 0;                   // タイトルラベルをスクロールしない時間
-        int  speed_idx;                    // 再生スピードのインデックスを管理
+        int speed_idx;                    // 再生スピードのインデックスを管理
 
         const string mp3_dir = @"sounds";  // 音声ファイルを格納するディレクトリ
         string mp3_file;                   // 現在選択されている音声ファイル名
@@ -79,13 +79,13 @@ namespace zerodori_listening_player
             // ボタンをマウスオーバー時のテキスト表示
             ToolTip tt = new ToolTip();
             tt.InitialDelay = 0;
-            tt.SetToolTip(button_prev,       "prev");
-            tt.SetToolTip(button_rewind,     "rewind");
+            tt.SetToolTip(button_prev, "prev");
+            tt.SetToolTip(button_rewind, "rewind");
             tt.SetToolTip(button_start_stop, "start/stop");
-            tt.SetToolTip(button_forward,    "forward");
-            tt.SetToolTip(button_next,       "next");
-            tt.SetToolTip(button_loop,       "loop");
-            tt.SetToolTip(button_auto,       "auto");
+            tt.SetToolTip(button_forward, "forward");
+            tt.SetToolTip(button_next, "next");
+            tt.SetToolTip(button_loop, "loop");
+            tt.SetToolTip(button_auto, "auto");
 
             // メインタイマーの設定
             timer_main.Interval = 100;
@@ -100,7 +100,7 @@ namespace zerodori_listening_player
                     time_now.Text = ((int)mp.controls.currentPosition / 60).ToString("0") + ":" + ((int)mp.controls.currentPosition % 60).ToString("00");
                 }
                 // 再生が終了してたら 初めから再生できるようにする
-                else if (mp.playState == WMPPlayState.wmppsStopped) 
+                else if (mp.playState == WMPPlayState.wmppsStopped)
                 {
                     playing = false;
                     mp_ctl();
@@ -157,10 +157,10 @@ namespace zerodori_listening_player
 
             // 初期値の指定
             speed_idx = list_speed.SelectedIndex = 2; // 1.0
-            is_loop   = false;
-            playing   = false;
+            is_loop = false;
+            playing = false;
             auto_play = false;
-            mp3_now   = 1;
+            mp3_now = 1;
 
             // 音声ファイル一覧の読み込み
             mp3_count = Directory.GetFiles(mp3_dir, "*.mp3", SearchOption.AllDirectories).Length;
@@ -188,6 +188,7 @@ namespace zerodori_listening_player
             auto_play = bool.Parse(ConfigurationManager.AppSettings["auto"]);
             button_auto.BackColor = auto_play ? Color.LightGray : SystemColors.Control;
             mp.URL = mp3_file_paths[mp3_now - 1];
+            this.TopMost = top_most.Checked = bool.Parse(ConfigurationManager.AppSettings["top"]);
 
             init();
         }
@@ -351,8 +352,8 @@ namespace zerodori_listening_player
             else if ((keyData & Keys.KeyCode) == Keys.Up)
             {
                 ++speed_idx;
-                if(speed_idx >= list_speed.MaxDropDownItems - 1)
-                    speed_idx =  list_speed.MaxDropDownItems - 2;
+                if (speed_idx >= list_speed.MaxDropDownItems - 1)
+                    speed_idx = list_speed.MaxDropDownItems - 2;
                 list_speed.SelectedIndex = speed_idx;
                 mp.settings.rate = double.Parse(list_speed.Text);
                 return true;
@@ -361,7 +362,7 @@ namespace zerodori_listening_player
             else if ((keyData & Keys.KeyCode) == Keys.Down)
             {
                 --speed_idx;
-                if(speed_idx < 0)
+                if (speed_idx < 0)
                     speed_idx = 0;
                 list_speed.SelectedIndex = speed_idx;
                 mp.settings.rate = double.Parse(list_speed.Text);
@@ -486,6 +487,7 @@ namespace zerodori_listening_player
             cfg.AppSettings.Settings["volume"].Value = mp.settings.volume.ToString();
             cfg.AppSettings.Settings["loop"].Value = is_loop.ToString();
             cfg.AppSettings.Settings["auto"].Value = auto_play.ToString();
+            cfg.AppSettings.Settings["top"].Value = top_most.Checked.ToString();
 
             cfg.Save();
         }
@@ -494,6 +496,12 @@ namespace zerodori_listening_player
         {
             auto_play = !auto_play;
             button_auto.BackColor = auto_play ? Color.LightGray : SystemColors.Control;
+        }
+
+        private void top_most_Click(object sender, EventArgs e)
+        {
+            this.TopMost = !this.TopMost;
+            top_most.Checked = !top_most.Checked;
         }
     }
 
