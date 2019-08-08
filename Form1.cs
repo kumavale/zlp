@@ -19,6 +19,11 @@ namespace zerodori_listening_player
 {
     public partial class Form1 : Form
     {
+        // Public
+        public static int rewind_sec  = 5;
+        public static int forward_sec = 5;
+
+
         const int TITLE  = 21;
         const int SHARP  = 26;
         const int LENGTH = 27;
@@ -166,6 +171,7 @@ namespace zerodori_listening_player
             playing = false;
             auto_play = false;
             mp3_now = 1;
+            rewind_sec = forward_sec = 5;
 
             // 音声ファイル一覧の読み込み
             mp3_count = Directory.GetFiles(mp3_dir, "*.mp3", SearchOption.AllDirectories).Length;
@@ -194,6 +200,8 @@ namespace zerodori_listening_player
             button_auto.BackColor = auto_play ? Color.LightGray : SystemColors.Control;
             mp.URL = mp3_file_paths[mp3_now - 1];
             this.TopMost = top_most.Checked = bool.Parse(ConfigurationManager.AppSettings["top"]);
+            rewind_sec = int.Parse(ConfigurationManager.AppSettings["rewind"]);
+            forward_sec = int.Parse(ConfigurationManager.AppSettings["forward"]);
 
             init();
         }
@@ -462,7 +470,7 @@ namespace zerodori_listening_player
         private void rewind()
         {
             int tmp_pos = (int)mp.controls.currentPosition;
-            tmp_pos -= 5;
+            tmp_pos -= rewind_sec;
             if (tmp_pos <= 0)
                 mp.controls.currentPosition = tmp_pos = 0;
             else
@@ -475,7 +483,7 @@ namespace zerodori_listening_player
         private void forward()
         {
             int tmp_pos = (int)mp.controls.currentPosition;
-            tmp_pos += 5;
+            tmp_pos += forward_sec;
             if (tmp_pos >= mp3_length)
                 mp.controls.currentPosition = tmp_pos = mp3_length;
             else
@@ -495,6 +503,8 @@ namespace zerodori_listening_player
             cfg.AppSettings.Settings["loop"].Value = is_loop.ToString();
             cfg.AppSettings.Settings["auto"].Value = auto_play.ToString();
             cfg.AppSettings.Settings["top"].Value = top_most.Checked.ToString();
+            cfg.AppSettings.Settings["rewind"].Value = rewind_sec.ToString();
+            cfg.AppSettings.Settings["forward"].Value = forward_sec.ToString();
 
             cfg.Save();
         }
@@ -509,6 +519,12 @@ namespace zerodori_listening_player
         {
             this.TopMost = !this.TopMost;
             top_most.Checked = !top_most.Checked;
+        }
+
+        private void settingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form2 form2 = new Form2();
+            form2.Show();
         }
     }
 
