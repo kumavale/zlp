@@ -19,8 +19,8 @@ namespace zerodori_listening_player
 {
     public partial class Form1 : Form
     {
-        const int TITLE = 21;
-        const int SHARP = 26;
+        const int TITLE  = 21;
+        const int SHARP  = 26;
         const int LENGTH = 27;
 
         enum SHIFT
@@ -36,7 +36,8 @@ namespace zerodori_listening_player
         bool playing;                      // 再生中か否か
         bool auto_play;                    // 自動で次の音声へ
         byte freeze = 0;                   // タイトルラベルをスクロールしない時間
-        int speed_idx;                    // 再生スピードのインデックスを管理
+        bool freeze2 = false;              // ラベルスクロール後に停止する時間を管理
+        int speed_idx;                     // 再生スピードのインデックスを管理
 
         const string mp3_dir = @"sounds";  // 音声ファイルを格納するディレクトリ
         string mp3_file;                   // 現在選択されている音声ファイル名
@@ -79,13 +80,13 @@ namespace zerodori_listening_player
             // ボタンをマウスオーバー時のテキスト表示
             ToolTip tt = new ToolTip();
             tt.InitialDelay = 0;
-            tt.SetToolTip(button_prev, "prev");
-            tt.SetToolTip(button_rewind, "rewind");
-            tt.SetToolTip(button_start_stop, "start/stop");
-            tt.SetToolTip(button_forward, "forward");
-            tt.SetToolTip(button_next, "next");
-            tt.SetToolTip(button_loop, "loop");
-            tt.SetToolTip(button_auto, "auto");
+            tt.SetToolTip(button_prev, "prev(P)");
+            tt.SetToolTip(button_rewind, "rewind(←)");
+            tt.SetToolTip(button_start_stop, "start/stop( )");
+            tt.SetToolTip(button_forward, "forward(→)");
+            tt.SetToolTip(button_next, "next(N)");
+            tt.SetToolTip(button_loop, "loop(L)");
+            tt.SetToolTip(button_auto, "auto(A)");
 
             // メインタイマーの設定
             timer_main.Interval = 100;
@@ -127,19 +128,23 @@ namespace zerodori_listening_player
             timer_label.Interval = 200;
             timer_main.Tick += delegate
             {
-                if (label_title.Size.Width > this.Width)
-                {
-                    if (label_title.Left < this.Width - label_title.Size.Width - 10 - 40)
-                    {
-                        freeze = 0;
-                        label_title.Left = 10;
-                    }
-                    else if (label_title.Left == 10 && freeze < 15)
-                    {
+                if (label_title.Size.Width > this.Width) {
+                    if (freeze < 15) {
                         ++freeze;
                     }
-                    else
+                    else if (label_title.Left < this.Width - label_title.Size.Width - 10 - 10) {
+                        if (freeze2) {
+                            label_title.Left = 10;
+                        }
+                        freeze2 = !freeze2;
+                        freeze = 0;
+                    }
+                    else {
                         label_title.Left -= 1;
+                    }
+                }
+                else {
+                    label_title.Left = 10;
                 }
             };
             timer_label.Start();
