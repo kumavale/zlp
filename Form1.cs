@@ -171,7 +171,6 @@ namespace zerodori_listening_player
             playing = false;
             auto_play = false;
             mp3_now = 1;
-            rewind_sec = forward_sec = 5;
 
             // 音声ファイル一覧の読み込み
             mp3_count = Directory.GetFiles(mp3_dir, "*.mp3", SearchOption.AllDirectories).Length;
@@ -524,7 +523,9 @@ namespace zerodori_listening_player
         private void settingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form2 form2 = new Form2();
-            form2.Show();
+            form2.StartPosition = FormStartPosition.CenterParent;
+            form2.ShowDialog(this);
+            form2.Dispose();
         }
     }
 

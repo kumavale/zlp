@@ -39,6 +39,15 @@ namespace zerodori_listening_player
 
             Form1.rewind_sec  = int.Parse(rewind_sec.Text);
             Form1.forward_sec = int.Parse(forward_sec.Text);
+
+            if (Form1.rewind_sec < 0) {
+                Form1.rewind_sec *= -1;
+                rewind_sec.Text = Form1.rewind_sec.ToString();
+            }
+            if (Form1.forward_sec < 0) {
+                Form1.forward_sec *= -1;
+                forward_sec.Text = Form1.forward_sec.ToString();
+            }
         }
     }
 }
