@@ -201,6 +201,8 @@ namespace zerodori_listening_player
             this.TopMost = top_most.Checked = bool.Parse(ConfigurationManager.AppSettings["top"]);
             rewind_sec = int.Parse(ConfigurationManager.AppSettings["rewind"]);
             forward_sec = int.Parse(ConfigurationManager.AppSettings["forward"]);
+            this.Left = int.Parse(ConfigurationManager.AppSettings["x"]);
+            this.Top = int.Parse(ConfigurationManager.AppSettings["y"]);
 
             init();
         }
@@ -504,6 +506,8 @@ namespace zerodori_listening_player
             cfg.AppSettings.Settings["top"].Value = top_most.Checked.ToString();
             cfg.AppSettings.Settings["rewind"].Value = rewind_sec.ToString();
             cfg.AppSettings.Settings["forward"].Value = forward_sec.ToString();
+            cfg.AppSettings.Settings["x"].Value = this.Left.ToString();
+            cfg.AppSettings.Settings["y"].Value = this.Top.ToString();
 
             cfg.Save();
         }
