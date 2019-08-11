@@ -252,19 +252,19 @@
             this.top_most,
             this.settingToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(121, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 92);
             // 
             // top_most
             // 
             this.top_most.Name = "top_most";
-            this.top_most.Size = new System.Drawing.Size(120, 22);
+            this.top_most.Size = new System.Drawing.Size(180, 22);
             this.top_most.Text = "TopMost";
             this.top_most.Click += new System.EventHandler(this.top_most_Click);
             // 
             // settingToolStripMenuItem
             // 
             this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
-            this.settingToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.settingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.settingToolStripMenuItem.Text = "Setting";
             this.settingToolStripMenuItem.Click += new System.EventHandler(this.settingToolStripMenuItem_Click);
             // 
