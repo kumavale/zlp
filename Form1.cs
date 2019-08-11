@@ -23,6 +23,17 @@ namespace zerodori_listening_player
         public static int rewind_sec  = 5;
         public static int forward_sec = 5;
 
+        public static Keys key_rewind = Keys.Left;
+        public static Keys key_forward = Keys.Right;
+        public static Keys key_speed_up = Keys.Up;
+        public static Keys key_speed_down = Keys.Down;
+        public static Keys key_prev = Keys.P;
+        public static Keys key_next = Keys.N;
+        public static Keys key_loop = Keys.L;
+        public static Keys key_auto = Keys.A;
+        public static Keys key_start_stop = Keys.Space;
+        public static Keys key_restart = Keys.Enter;
+
 
         const int TITLE  = 21;
         const int SHARP  = 26;
@@ -173,7 +184,16 @@ namespace zerodori_listening_player
             mp3_now = 1;
 
             // 音声ファイル一覧の読み込み
-            mp3_count = Directory.GetFiles(mp3_dir, "*.mp3", SearchOption.AllDirectories).Length;
+            mp3_file_paths = Directory.GetFiles(mp3_dir, "*.mp3", SearchOption.AllDirectories);
+            List<string> list = new List<string>();
+            list.AddRange(mp3_file_paths);
+            foreach(string p in mp3_file_paths) {
+                if (Regex.IsMatch(p, ".ignore/*"))
+                    list.Remove(p);
+            }
+            mp3_file_paths = list.ToArray();
+            mp3_count = mp3_file_paths.Length;
+            Array.Sort(mp3_file_paths, new SortByNumber());
             if (mp3_count == 0)
             {
                 MessageBox.Show("音声ファイルが見つかりません",
@@ -182,8 +202,6 @@ namespace zerodori_listening_player
                     MessageBoxIcon.Error);
                 Application.Exit();
             }
-            mp3_file_paths = Directory.GetFiles(mp3_dir, "*.mp3", SearchOption.AllDirectories);
-            Array.Sort(mp3_file_paths, new SortByNumber());
 
             // 前回の設定を読み込み, 適用
             mp3_now = int.Parse(ConfigurationManager.AppSettings["now"]);
@@ -203,6 +221,7 @@ namespace zerodori_listening_player
             forward_sec = int.Parse(ConfigurationManager.AppSettings["forward"]);
             this.Left = int.Parse(ConfigurationManager.AppSettings["x"]);
             this.Top = int.Parse(ConfigurationManager.AppSettings["y"]);
+            Enum.TryParse<Keys>(ConfigurationManager.AppSettings["key_rewind"], out key_rewind);
 
             init();
         }
@@ -351,19 +370,19 @@ namespace zerodori_listening_player
         protected override bool ProcessDialogKey(Keys keyData)
         {
             // 左キーで 5秒戻り
-            if ((keyData & Keys.KeyCode) == Keys.Left)
+            if ((keyData & Keys.KeyCode) == key_rewind)
             {
                 rewind();
                 return true;
             }
             // 右キーで 5秒送り
-            else if ((keyData & Keys.KeyCode) == Keys.Right)
+            else if ((keyData & Keys.KeyCode) == key_forward)
             {
                 forward();
                 return true;
             }
             // 上キーで スピードUp
-            else if ((keyData & Keys.KeyCode) == Keys.Up)
+            else if ((keyData & Keys.KeyCode) == key_speed_up)
             {
                 ++speed_idx;
                 if (speed_idx >= list_speed.MaxDropDownItems - 1)
@@ -373,7 +392,7 @@ namespace zerodori_listening_player
                 return true;
             }
             // 下キーで スピードDown
-            else if ((keyData & Keys.KeyCode) == Keys.Down)
+            else if ((keyData & Keys.KeyCode) == key_speed_down)
             {
                 --speed_idx;
                 if (speed_idx < 0)
@@ -383,40 +402,40 @@ namespace zerodori_listening_player
                 return true;
             }
             // Pキーで 前の音声
-            else if ((keyData & Keys.KeyCode) == Keys.P)
+            else if ((keyData & Keys.KeyCode) == key_prev)
             {
                 shift_sound(SHIFT.PREV);
                 return true;
             }
             // Nキーで 次の音声
-            else if ((keyData & Keys.KeyCode) == Keys.N)
+            else if ((keyData & Keys.KeyCode) == key_next)
             {
                 shift_sound(SHIFT.NEXT);
                 return true;
             }
             // Lキーで ループ on/off
-            else if ((keyData & Keys.KeyCode) == Keys.L)
+            else if ((keyData & Keys.KeyCode) == key_loop)
             {
                 is_loop = !is_loop;
                 button_loop.BackColor = is_loop ? Color.LightGray : SystemColors.Control;
                 return true;
             }
             // Aキーで 自動再生 on/off
-            else if ((keyData & Keys.KeyCode) == Keys.A)
+            else if ((keyData & Keys.KeyCode) == key_auto)
             {
                 auto_play = !auto_play;
                 button_auto.BackColor = auto_play ? Color.LightGray : SystemColors.Control;
                 return true;
             }
             // スペースキーでstart/stop
-            else if ((keyData & Keys.KeyCode) == Keys.Space)
+            else if ((keyData & Keys.KeyCode) == key_start_stop)
             {
                 playing = !playing;
                 mp_ctl();
                 return true;
             }
             // エンターキーで restart
-            else if ((keyData & Keys.KeyCode) == Keys.Enter)
+            else if ((keyData & Keys.KeyCode) == key_restart)
             {
                 if (!mp3_number.Focused) {
                     mp.controls.currentPosition = 0;
@@ -508,6 +527,16 @@ namespace zerodori_listening_player
             cfg.AppSettings.Settings["forward"].Value = forward_sec.ToString();
             cfg.AppSettings.Settings["x"].Value = this.Left.ToString();
             cfg.AppSettings.Settings["y"].Value = this.Top.ToString();
+            cfg.AppSettings.Settings["key_rewind"].Value = key_rewind.ToString();
+            cfg.AppSettings.Settings["key_forward"].Value = key_forward.ToString();
+            cfg.AppSettings.Settings["key_speed_up"].Value = key_speed_up.ToString();
+            cfg.AppSettings.Settings["key_speed_down"].Value = key_speed_down.ToString();
+            cfg.AppSettings.Settings["key_prev"].Value = key_prev.ToString();
+            cfg.AppSettings.Settings["key_next"].Value = key_next.ToString();
+            cfg.AppSettings.Settings["key_loop"].Value = key_loop.ToString();
+            cfg.AppSettings.Settings["key_auto"].Value = key_auto.ToString();
+            cfg.AppSettings.Settings["key_start_stop"].Value = key_start_stop.ToString();
+            cfg.AppSettings.Settings["key_restart"].Value = key_restart.ToString();
 
             cfg.Save();
         }

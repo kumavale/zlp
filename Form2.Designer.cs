@@ -54,7 +54,7 @@
             // label_rewind
             // 
             this.label_rewind.AutoSize = true;
-            this.label_rewind.Location = new System.Drawing.Point(141, 24);
+            this.label_rewind.Location = new System.Drawing.Point(121, 22);
             this.label_rewind.Name = "label_rewind";
             this.label_rewind.Size = new System.Drawing.Size(94, 13);
             this.label_rewind.TabIndex = 0;
@@ -63,7 +63,7 @@
             // 
             // rewind_sec
             // 
-            this.rewind_sec.Location = new System.Drawing.Point(256, 21);
+            this.rewind_sec.Location = new System.Drawing.Point(236, 19);
             this.rewind_sec.Name = "rewind_sec";
             this.rewind_sec.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.rewind_sec.Size = new System.Drawing.Size(32, 20);
@@ -74,7 +74,7 @@
             // label_sec1
             // 
             this.label_sec1.AutoSize = true;
-            this.label_sec1.Location = new System.Drawing.Point(288, 24);
+            this.label_sec1.Location = new System.Drawing.Point(268, 22);
             this.label_sec1.Name = "label_sec1";
             this.label_sec1.Size = new System.Drawing.Size(24, 13);
             this.label_sec1.TabIndex = 2;
@@ -84,7 +84,7 @@
             // label_sec2
             // 
             this.label_sec2.AutoSize = true;
-            this.label_sec2.Location = new System.Drawing.Point(288, 50);
+            this.label_sec2.Location = new System.Drawing.Point(268, 48);
             this.label_sec2.Name = "label_sec2";
             this.label_sec2.Size = new System.Drawing.Size(24, 13);
             this.label_sec2.TabIndex = 5;
@@ -93,7 +93,7 @@
             // 
             // forward_sec
             // 
-            this.forward_sec.Location = new System.Drawing.Point(256, 47);
+            this.forward_sec.Location = new System.Drawing.Point(236, 45);
             this.forward_sec.Name = "forward_sec";
             this.forward_sec.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.forward_sec.Size = new System.Drawing.Size(32, 20);
@@ -104,7 +104,7 @@
             // label_forward
             // 
             this.label_forward.AutoSize = true;
-            this.label_forward.Location = new System.Drawing.Point(141, 50);
+            this.label_forward.Location = new System.Drawing.Point(121, 48);
             this.label_forward.Name = "label_forward";
             this.label_forward.Size = new System.Drawing.Size(106, 13);
             this.label_forward.TabIndex = 3;
@@ -123,7 +123,7 @@
             // 
             // button_default
             // 
-            this.button_default.Location = new System.Drawing.Point(256, 73);
+            this.button_default.Location = new System.Drawing.Point(236, 71);
             this.button_default.Name = "button_default";
             this.button_default.Size = new System.Drawing.Size(64, 22);
             this.button_default.TabIndex = 7;
@@ -286,6 +286,7 @@
             this.Controls.Add(this.label_sec1);
             this.Controls.Add(this.rewind_sec);
             this.Controls.Add(this.label_rewind);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
