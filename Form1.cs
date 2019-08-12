@@ -599,6 +599,12 @@ namespace zerodori_listening_player
             mp3_file = Path.GetFileName(mp3_file_paths[mp3_now - 1]);
             shift_sound(SHIFT.NONE);
         }
+
+        // 音声ファイルのフォルダを開く
+        private void OpenFileLocationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(mp3_dir);
+        }
     }
 
     public class SortByNumber : IComparer

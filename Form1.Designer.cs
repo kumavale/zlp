@@ -48,8 +48,9 @@
             this.button_auto = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.top_most = new System.Windows.Forms.ToolStripMenuItem();
-            this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadSoundsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.bar_seek)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar_volume)).BeginInit();
@@ -252,16 +253,24 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.top_most,
             this.reloadSoundsToolStripMenuItem,
+            this.openFileLocationToolStripMenuItem,
             this.settingToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 114);
             // 
             // top_most
             // 
             this.top_most.Name = "top_most";
             this.top_most.Size = new System.Drawing.Size(180, 22);
-            this.top_most.Text = "TopMost";
+            this.top_most.Text = "Top Most";
             this.top_most.Click += new System.EventHandler(this.top_most_Click);
+            // 
+            // reloadSoundsToolStripMenuItem
+            // 
+            this.reloadSoundsToolStripMenuItem.Name = "reloadSoundsToolStripMenuItem";
+            this.reloadSoundsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reloadSoundsToolStripMenuItem.Text = "Reload Sounds";
+            this.reloadSoundsToolStripMenuItem.Click += new System.EventHandler(this.ReloadSoundsToolStripMenuItem_Click);
             // 
             // settingToolStripMenuItem
             // 
@@ -270,12 +279,12 @@
             this.settingToolStripMenuItem.Text = "Setting";
             this.settingToolStripMenuItem.Click += new System.EventHandler(this.settingToolStripMenuItem_Click);
             // 
-            // reloadSoundsToolStripMenuItem
+            // openFileLocationToolStripMenuItem
             // 
-            this.reloadSoundsToolStripMenuItem.Name = "reloadSoundsToolStripMenuItem";
-            this.reloadSoundsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.reloadSoundsToolStripMenuItem.Text = "ReloadSounds";
-            this.reloadSoundsToolStripMenuItem.Click += new System.EventHandler(this.ReloadSoundsToolStripMenuItem_Click);
+            this.openFileLocationToolStripMenuItem.Name = "openFileLocationToolStripMenuItem";
+            this.openFileLocationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openFileLocationToolStripMenuItem.Text = "Open File Location";
+            this.openFileLocationToolStripMenuItem.Click += new System.EventHandler(this.OpenFileLocationToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -336,6 +345,7 @@
         private System.Windows.Forms.ToolStripMenuItem top_most;
         private System.Windows.Forms.ToolStripMenuItem settingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reloadSoundsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openFileLocationToolStripMenuItem;
     }
 }
 
