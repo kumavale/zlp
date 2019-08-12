@@ -41,6 +41,7 @@ namespace zerodori_listening_player
 
         enum SHIFT
         {
+            NONE,
             PREV,
             NEXT
         }
@@ -222,6 +223,15 @@ namespace zerodori_listening_player
             this.Left = int.Parse(ConfigurationManager.AppSettings["x"]);
             this.Top = int.Parse(ConfigurationManager.AppSettings["y"]);
             Enum.TryParse<Keys>(ConfigurationManager.AppSettings["key_rewind"], out key_rewind);
+            Enum.TryParse<Keys>(ConfigurationManager.AppSettings["key_forward"], out key_forward);
+            Enum.TryParse<Keys>(ConfigurationManager.AppSettings["key_speed_up"], out key_speed_up);
+            Enum.TryParse<Keys>(ConfigurationManager.AppSettings["key_speed_down"], out key_speed_down);
+            Enum.TryParse<Keys>(ConfigurationManager.AppSettings["key_prev"], out key_prev);
+            Enum.TryParse<Keys>(ConfigurationManager.AppSettings["key_next"], out key_next);
+            Enum.TryParse<Keys>(ConfigurationManager.AppSettings["key_loop"], out key_loop);
+            Enum.TryParse<Keys>(ConfigurationManager.AppSettings["key_auto"], out key_auto);
+            Enum.TryParse<Keys>(ConfigurationManager.AppSettings["key_start_stop"], out key_start_stop);
+            Enum.TryParse<Keys>(ConfigurationManager.AppSettings["key_restart"], out key_restart);
 
             init();
         }
@@ -559,6 +569,35 @@ namespace zerodori_listening_player
             form2.StartPosition = FormStartPosition.CenterParent;
             form2.ShowDialog(this);
             form2.Dispose();
+        }
+
+        // 音声ファイルの再読み込み
+        private void ReloadSoundsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            playing = false;
+            mp_ctl();
+            mp3_file_paths = Directory.GetFiles(mp3_dir, "*.mp3", SearchOption.AllDirectories);
+            List<string> list = new List<string>();
+            list.AddRange(mp3_file_paths);
+            foreach(string p in mp3_file_paths) {
+                if (Regex.IsMatch(p, ".ignore/*"))
+                    list.Remove(p);
+            }
+            mp3_file_paths = list.ToArray();
+            mp3_count = mp3_file_paths.Length;
+            Array.Sort(mp3_file_paths, new SortByNumber());
+            if (mp3_count == 0)
+            {
+                MessageBox.Show("音声ファイルが見つかりません",
+                    "error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                Application.Exit();
+            }
+            if (mp3_now > mp3_count)
+                mp3_now = 1;
+            mp3_file = Path.GetFileName(mp3_file_paths[mp3_now - 1]);
+            shift_sound(SHIFT.NONE);
         }
     }
 

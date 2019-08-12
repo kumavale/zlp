@@ -48,6 +48,7 @@
             this.label_source = new System.Windows.Forms.Label();
             this.linkLabel_license = new System.Windows.Forms.LinkLabel();
             this.linkLabel_source = new System.Windows.Forms.LinkLabel();
+            this.label_author = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picture_icon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -224,7 +225,7 @@
             // label_license
             // 
             this.label_license.AutoSize = true;
-            this.label_license.Location = new System.Drawing.Point(118, 103);
+            this.label_license.Location = new System.Drawing.Point(118, 116);
             this.label_license.Name = "label_license";
             this.label_license.Size = new System.Drawing.Size(47, 13);
             this.label_license.TabIndex = 15;
@@ -233,7 +234,7 @@
             // label_source
             // 
             this.label_source.AutoSize = true;
-            this.label_source.Location = new System.Drawing.Point(118, 126);
+            this.label_source.Location = new System.Drawing.Point(118, 132);
             this.label_source.Name = "label_source";
             this.label_source.Size = new System.Drawing.Size(71, 13);
             this.label_source.TabIndex = 16;
@@ -243,7 +244,7 @@
             // 
             this.linkLabel_license.AutoSize = true;
             this.linkLabel_license.LinkVisited = true;
-            this.linkLabel_license.Location = new System.Drawing.Point(187, 103);
+            this.linkLabel_license.Location = new System.Drawing.Point(187, 116);
             this.linkLabel_license.Name = "linkLabel_license";
             this.linkLabel_license.Size = new System.Drawing.Size(26, 13);
             this.linkLabel_license.TabIndex = 17;
@@ -254,7 +255,7 @@
             // linkLabel_source
             // 
             this.linkLabel_source.AutoSize = true;
-            this.linkLabel_source.Location = new System.Drawing.Point(187, 125);
+            this.linkLabel_source.Location = new System.Drawing.Point(187, 131);
             this.linkLabel_source.Name = "linkLabel_source";
             this.linkLabel_source.Size = new System.Drawing.Size(114, 13);
             this.linkLabel_source.TabIndex = 18;
@@ -262,11 +263,21 @@
             this.linkLabel_source.Text = "github.com/yorimoi/zlp";
             this.linkLabel_source.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel_source_LinkClicked);
             // 
+            // label_author
+            // 
+            this.label_author.AutoSize = true;
+            this.label_author.Location = new System.Drawing.Point(118, 78);
+            this.label_author.Name = "label_author";
+            this.label_author.Size = new System.Drawing.Size(69, 13);
+            this.label_author.TabIndex = 19;
+            this.label_author.Text = "Author: kmgy";
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(330, 217);
+            this.Controls.Add(this.label_author);
             this.Controls.Add(this.linkLabel_source);
             this.Controls.Add(this.linkLabel_license);
             this.Controls.Add(this.label_source);
@@ -321,5 +332,6 @@
         private System.Windows.Forms.Label label_source;
         private System.Windows.Forms.LinkLabel linkLabel_license;
         private System.Windows.Forms.LinkLabel linkLabel_source;
+        private System.Windows.Forms.Label label_author;
     }
 }

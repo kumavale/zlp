@@ -77,6 +77,7 @@ namespace zerodori_listening_player
             label_name_short.Visible =
             label_name_full.Visible =
             label_version.Visible =
+            label_author.Visible =
             label_license.Visible =
             linkLabel_license.Visible =
             label_source.Visible =
@@ -113,6 +114,7 @@ namespace zerodori_listening_player
             label_name_short.Visible =
             label_name_full.Visible =
             label_version.Visible =
+            label_author.Visible =
             label_license.Visible =
             linkLabel_license.Visible =
             label_source.Visible =
@@ -146,6 +148,7 @@ namespace zerodori_listening_player
             label_name_short.Visible =
             label_name_full.Visible =
             label_version.Visible =
+            label_author.Visible =
             label_license.Visible =
             linkLabel_license.Visible =
             label_source.Visible =

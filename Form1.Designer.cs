@@ -49,6 +49,7 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.top_most = new System.Windows.Forms.ToolStripMenuItem();
             this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reloadSoundsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.bar_seek)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar_volume)).BeginInit();
@@ -250,6 +251,7 @@
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.top_most,
+            this.reloadSoundsToolStripMenuItem,
             this.settingToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(181, 92);
@@ -267,6 +269,13 @@
             this.settingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.settingToolStripMenuItem.Text = "Setting";
             this.settingToolStripMenuItem.Click += new System.EventHandler(this.settingToolStripMenuItem_Click);
+            // 
+            // reloadSoundsToolStripMenuItem
+            // 
+            this.reloadSoundsToolStripMenuItem.Name = "reloadSoundsToolStripMenuItem";
+            this.reloadSoundsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reloadSoundsToolStripMenuItem.Text = "ReloadSounds";
+            this.reloadSoundsToolStripMenuItem.Click += new System.EventHandler(this.ReloadSoundsToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -326,6 +335,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem top_most;
         private System.Windows.Forms.ToolStripMenuItem settingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reloadSoundsToolStripMenuItem;
     }
 }
 
