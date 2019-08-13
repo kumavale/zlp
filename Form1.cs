@@ -305,7 +305,7 @@ namespace zerodori_listening_player
         private void set_time()
         {
             DateTime dt = DateTime.Parse(f.GetDetailsOf(fi, LENGTH));
-            time_length.Text = dt.Minute + ":" + dt.Second;
+            time_length.Text = dt.Minute + ":" + (dt.Second<10 ? "0":"") + dt.Second;
             mp3_length = dt.Minute * 60 + dt.Second;
         }
 
