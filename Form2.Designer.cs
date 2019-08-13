@@ -377,7 +377,9 @@
             this.textBox_sc_speed_down.Size = new System.Drawing.Size(82, 20);
             this.textBox_sc_speed_down.TabIndex = 26;
             this.textBox_sc_speed_down.TabStop = false;
-            this.textBox_sc_speed_down.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_sc_speed_down_KeyUp);
+            this.textBox_sc_speed_down.Enter += new System.EventHandler(this.TextBox_sc_Enter);
+            this.textBox_sc_speed_down.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_sc_KeyUp);
+            this.textBox_sc_speed_down.Leave += new System.EventHandler(this.TextBox_sc_Leave);
             // 
             // label_sc_auto
             // 
@@ -449,7 +451,9 @@
             this.textBox_sc_prev.Size = new System.Drawing.Size(82, 20);
             this.textBox_sc_prev.TabIndex = 34;
             this.textBox_sc_prev.TabStop = false;
-            this.textBox_sc_prev.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_sc_prev_KeyUp);
+            this.textBox_sc_prev.Enter += new System.EventHandler(this.TextBox_sc_Enter);
+            this.textBox_sc_prev.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_sc_KeyUp);
+            this.textBox_sc_prev.Leave += new System.EventHandler(this.TextBox_sc_Leave);
             // 
             // button_sc_cross_rewind
             // 
@@ -476,7 +480,9 @@
             this.textBox_sc_rewind.Size = new System.Drawing.Size(82, 20);
             this.textBox_sc_rewind.TabIndex = 36;
             this.textBox_sc_rewind.TabStop = false;
-            this.textBox_sc_rewind.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_sc_rewind_KeyUp);
+            this.textBox_sc_rewind.Enter += new System.EventHandler(this.TextBox_sc_Enter);
+            this.textBox_sc_rewind.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_sc_KeyUp);
+            this.textBox_sc_rewind.Leave += new System.EventHandler(this.TextBox_sc_Leave);
             // 
             // button_sc_cross_start_stop
             // 
@@ -503,7 +509,9 @@
             this.textBox_sc_start_stop.Size = new System.Drawing.Size(82, 20);
             this.textBox_sc_start_stop.TabIndex = 38;
             this.textBox_sc_start_stop.TabStop = false;
-            this.textBox_sc_start_stop.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_sc_start_stop_KeyUp);
+            this.textBox_sc_start_stop.Enter += new System.EventHandler(this.TextBox_sc_Enter);
+            this.textBox_sc_start_stop.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_sc_KeyUp);
+            this.textBox_sc_start_stop.Leave += new System.EventHandler(this.TextBox_sc_Leave);
             // 
             // button_sc_cross_forward
             // 
@@ -530,7 +538,9 @@
             this.textBox_sc_forward.Size = new System.Drawing.Size(82, 20);
             this.textBox_sc_forward.TabIndex = 40;
             this.textBox_sc_forward.TabStop = false;
-            this.textBox_sc_forward.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_sc_forward_KeyUp);
+            this.textBox_sc_forward.Enter += new System.EventHandler(this.TextBox_sc_Enter);
+            this.textBox_sc_forward.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_sc_KeyUp);
+            this.textBox_sc_forward.Leave += new System.EventHandler(this.TextBox_sc_Leave);
             // 
             // button_sc_cross_next
             // 
@@ -557,7 +567,9 @@
             this.textBox_sc_next.Size = new System.Drawing.Size(82, 20);
             this.textBox_sc_next.TabIndex = 42;
             this.textBox_sc_next.TabStop = false;
-            this.textBox_sc_next.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_sc_next_KeyUp);
+            this.textBox_sc_next.Enter += new System.EventHandler(this.TextBox_sc_Enter);
+            this.textBox_sc_next.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_sc_KeyUp);
+            this.textBox_sc_next.Leave += new System.EventHandler(this.TextBox_sc_Leave);
             // 
             // button_sc_cross_loop
             // 
@@ -584,7 +596,9 @@
             this.textBox_sc_loop.Size = new System.Drawing.Size(82, 20);
             this.textBox_sc_loop.TabIndex = 44;
             this.textBox_sc_loop.TabStop = false;
-            this.textBox_sc_loop.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_sc_loop_KeyUp);
+            this.textBox_sc_loop.Enter += new System.EventHandler(this.TextBox_sc_Enter);
+            this.textBox_sc_loop.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_sc_KeyUp);
+            this.textBox_sc_loop.Leave += new System.EventHandler(this.TextBox_sc_Leave);
             // 
             // button_sc_cross_auto
             // 
@@ -611,7 +625,9 @@
             this.textBox_sc_auto.Size = new System.Drawing.Size(82, 20);
             this.textBox_sc_auto.TabIndex = 46;
             this.textBox_sc_auto.TabStop = false;
-            this.textBox_sc_auto.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_sc_auto_KeyUp);
+            this.textBox_sc_auto.Enter += new System.EventHandler(this.TextBox_sc_Enter);
+            this.textBox_sc_auto.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_sc_KeyUp);
+            this.textBox_sc_auto.Leave += new System.EventHandler(this.TextBox_sc_Leave);
             // 
             // textBox_sc_speed_up
             // 
@@ -624,7 +640,9 @@
             this.textBox_sc_speed_up.Size = new System.Drawing.Size(82, 20);
             this.textBox_sc_speed_up.TabIndex = 48;
             this.textBox_sc_speed_up.TabStop = false;
-            this.textBox_sc_speed_up.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_sc_speed_up_KeyUp);
+            this.textBox_sc_speed_up.Enter += new System.EventHandler(this.TextBox_sc_Enter);
+            this.textBox_sc_speed_up.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_sc_KeyUp);
+            this.textBox_sc_speed_up.Leave += new System.EventHandler(this.TextBox_sc_Leave);
             // 
             // Form2
             // 
@@ -685,6 +703,7 @@
             this.Name = "Form2";
             this.Text = "zlp - Setting";
             this.Load += new System.EventHandler(this.Form2_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form2_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.picture_icon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

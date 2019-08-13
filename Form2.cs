@@ -19,8 +19,10 @@ namespace zerodori_listening_player
         [DllImport("USER32.dll")]
         static extern bool HideCaret(IntPtr hWnd);
 
-        readonly Color lime = Color.FromArgb(128, 255, 128);
-        readonly Color none = Color.Transparent;
+        readonly Color lime  = Color.FromArgb(128, 255, 128);
+        readonly Color alice = Color.AliceBlue;
+        readonly Color white = Color.White;
+        readonly Color none  = Color.Transparent;
 
         enum items {
             APPLICATION,
@@ -407,11 +409,10 @@ namespace zerodori_listening_player
             return "";
         }
 
-        private void TextBox_sc_speed_up_KeyUp(object sender, KeyEventArgs e)
+        private void TextBox_sc_KeyUp(object sender, KeyEventArgs e)
         {
-            Console.WriteLine("[" + e.KeyCode + "]" + "[" + e.KeyValue + "]");
             if(is_valid_key((int)e.KeyCode)){
-                textBox_sc_speed_up.Text = keycode_to_value(e.KeyCode);
+                ((TextBox)sender).Text = keycode_to_value(e.KeyCode);
             }
         }
 
@@ -421,24 +422,10 @@ namespace zerodori_listening_player
             textBox_sc_speed_up.Focus();
         }
 
-        private void TextBox_sc_speed_down_KeyUp(object sender, KeyEventArgs e)
-        {
-            if(is_valid_key((int)e.KeyCode)){
-                textBox_sc_speed_down.Text = keycode_to_value(e.KeyCode);
-            }
-        }
-
         private void Button_sc_cross_speed_down_Click(object sender, EventArgs e)
         {
             textBox_sc_speed_down.Text = "";
             textBox_sc_speed_down.Focus();
-        }
-
-        private void TextBox_sc_prev_KeyUp(object sender, KeyEventArgs e)
-        {
-            if(is_valid_key((int)e.KeyCode)){
-                textBox_sc_prev.Text = keycode_to_value(e.KeyCode);
-            }
         }
 
         private void Button_sc_cross_prev_Click(object sender, EventArgs e)
@@ -447,24 +434,10 @@ namespace zerodori_listening_player
             textBox_sc_prev.Focus();
         }
 
-        private void TextBox_sc_rewind_KeyUp(object sender, KeyEventArgs e)
-        {
-            if(is_valid_key((int)e.KeyCode)){
-                textBox_sc_rewind.Text = keycode_to_value(e.KeyCode);
-            }
-        }
-
         private void Button_sc_cross_rewind_Click(object sender, EventArgs e)
         {
             textBox_sc_rewind.Text = "";
             textBox_sc_rewind.Focus();
-        }
-
-        private void TextBox_sc_start_stop_KeyUp(object sender, KeyEventArgs e)
-        {
-            if(is_valid_key((int)e.KeyCode)){
-                textBox_sc_start_stop.Text = keycode_to_value(e.KeyCode);
-            }
         }
 
         private void Button_sc_cross_start_stop_Click(object sender, EventArgs e)
@@ -473,24 +446,10 @@ namespace zerodori_listening_player
             textBox_sc_start_stop.Focus();
         }
 
-        private void TextBox_sc_forward_KeyUp(object sender, KeyEventArgs e)
-        {
-            if(is_valid_key((int)e.KeyCode)){
-                textBox_sc_forward.Text = keycode_to_value(e.KeyCode);
-            }
-        }
-
         private void Button_sc_cross_forward_Click(object sender, EventArgs e)
         {
             textBox_sc_forward.Text = "";
             textBox_sc_forward.Focus();
-        }
-
-        private void TextBox_sc_next_KeyUp(object sender, KeyEventArgs e)
-        {
-            if(is_valid_key((int)e.KeyCode)){
-                textBox_sc_next.Text = keycode_to_value(e.KeyCode);
-            }
         }
 
         private void Button_sc_cross_next_Click(object sender, EventArgs e)
@@ -499,30 +458,45 @@ namespace zerodori_listening_player
             textBox_sc_next.Focus();
         }
 
-        private void TextBox_sc_loop_KeyUp(object sender, KeyEventArgs e)
-        {
-            if(is_valid_key((int)e.KeyCode)){
-                textBox_sc_loop.Text = keycode_to_value(e.KeyCode);
-            }
-        }
-
         private void Button_sc_cross_loop_Click(object sender, EventArgs e)
         {
             textBox_sc_loop.Text = "";
             textBox_sc_loop.Focus();
         }
 
-        private void TextBox_sc_auto_KeyUp(object sender, KeyEventArgs e)
-        {
-            if(is_valid_key((int)e.KeyCode)){
-                textBox_sc_auto.Text = keycode_to_value(e.KeyCode);
-            }
-        }
-
         private void Button_sc_cross_auto_Click(object sender, EventArgs e)
         {
             textBox_sc_auto.Text = "";
             textBox_sc_auto.Focus();
+        }
+
+        // テキストボックス選択時の枠線の色の指定
+        // TODO
+        private void Form2_Paint(object sender, PaintEventArgs e)
+        {
+            //textBox_sc_speed_up.BorderStyle = BorderStyle.None;
+            //Pen p = new Pen(Color.Blue);
+            //Graphics g = e.Graphics;
+            //g.DrawRectangle(p,
+            //    new Rectangle(textBox_sc_speed_up.Location.X,
+            //                  textBox_sc_speed_up.Location.Y,
+            //                  textBox_sc_speed_up.Width,
+            //                  textBox_sc_speed_up.Height + 6));
+            //g.FillRectangle(Brushes.White,
+            //                textBox_sc_speed_up.Location.X + 1,
+            //                textBox_sc_speed_up.Location.Y + 1,
+            //                textBox_sc_speed_up.Width - 2,
+            //                textBox_sc_speed_up.Height + 4);
+        }
+
+        private void TextBox_sc_Enter(object sender, EventArgs e)
+        {
+            ((TextBox)sender).BackColor = alice;
+        }
+
+        private void TextBox_sc_Leave(object sender, EventArgs e)
+        {
+            ((TextBox)sender).BackColor = white;
         }
     }
 }
