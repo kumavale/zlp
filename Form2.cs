@@ -10,14 +10,17 @@ using System.Windows.Forms;
 
 using System.Diagnostics;
 using System.Configuration;
+using System.Runtime.InteropServices;
 
 namespace zerodori_listening_player
 {
     public partial class Form2 : Form
     {
+        [DllImport("USER32.dll")]
+        static extern bool HideCaret(IntPtr hWnd);
 
-        Color lime = Color.FromArgb(128, 255, 128);
-        Color none = Color.Transparent;
+        readonly Color lime = Color.FromArgb(128, 255, 128);
+        readonly Color none = Color.Transparent;
 
         enum items {
             APPLICATION,
@@ -25,7 +28,6 @@ namespace zerodori_listening_player
             ABOUT
         }
         private items current_item;
-        //private System.Windows.Forms.TextBox[] textBoxes;
 
         public Form2()
         {
@@ -50,15 +52,6 @@ namespace zerodori_listening_player
             textBox_sc_next.Text = Form1.key_next.ToString();
             textBox_sc_loop.Text = Form1.key_loop.ToString();
             textBox_sc_auto.Text = Form1.key_auto.ToString();
-            if(textBox_sc_speed_up.Text == "None")   textBox_sc_speed_up.Text = "";
-            if(textBox_sc_speed_down.Text == "None") textBox_sc_speed_up.Text = "";
-            if(textBox_sc_prev.Text == "None")       textBox_sc_speed_up.Text = "";
-            if(textBox_sc_rewind.Text == "None")     textBox_sc_speed_up.Text = "";
-            if(textBox_sc_start_stop.Text == "None") textBox_sc_speed_up.Text = "";
-            if(textBox_sc_forward.Text == "None")    textBox_sc_speed_up.Text = "";
-            if(textBox_sc_next.Text == "None")       textBox_sc_speed_up.Text = "";
-            if(textBox_sc_loop.Text == "None")       textBox_sc_speed_up.Text = "";
-            if(textBox_sc_auto.Text == "None")       textBox_sc_speed_up.Text = "";
             // About
             label_version.Text = "Version: " + ConfigurationManager.AppSettings["version"];
             label_author.Text = "Author: " + ConfigurationManager.AppSettings["authors"];
@@ -70,6 +63,67 @@ namespace zerodori_listening_player
             tt.InitialDelay = 0;
             tt.SetToolTip(linkLabel_license, "https://github.com/yorimoi/zlp/blob/master/LICENSE");
             tt.SetToolTip(linkLabel_source, "https://github.com/yorimoi/zlp");
+
+            // キャレットの削除
+            textBox_sc_speed_up.GotFocus   += (s, e) => { HideCaret(textBox_sc_speed_up.Handle); };
+            textBox_sc_speed_down.GotFocus += (s, e) => { HideCaret(textBox_sc_speed_down.Handle); };
+            textBox_sc_prev.GotFocus       += (s, e) => { HideCaret(textBox_sc_prev.Handle); };
+            textBox_sc_rewind.GotFocus     += (s, e) => { HideCaret(textBox_sc_rewind.Handle); };
+            textBox_sc_start_stop.GotFocus += (s, e) => { HideCaret(textBox_sc_start_stop.Handle); };
+            textBox_sc_forward.GotFocus    += (s, e) => { HideCaret(textBox_sc_forward.Handle); };
+            textBox_sc_next.GotFocus       += (s, e) => { HideCaret(textBox_sc_next.Handle); };
+            textBox_sc_loop.GotFocus       += (s, e) => { HideCaret(textBox_sc_loop.Handle); };
+            textBox_sc_auto.GotFocus       += (s, e) => { HideCaret(textBox_sc_auto.Handle); };
+
+            // KeysEnumと表示文字列の変換
+            string[] textBoxes = {
+                textBox_sc_speed_up.Text,
+                textBox_sc_speed_down.Text,
+                textBox_sc_prev.Text,
+                textBox_sc_rewind.Text,
+                textBox_sc_start_stop.Text,
+                textBox_sc_forward.Text,
+                textBox_sc_next.Text,
+                textBox_sc_loop.Text,
+                textBox_sc_auto.Text
+            };
+
+            for(int i=0; i<textBoxes.Length; ++i) {
+                switch(textBoxes[i]) {
+                    case "None":            textBoxes[i] = "";   break;
+                    case "D0":              textBoxes[i] = "0";  break;
+                    case "D1":              textBoxes[i] = "1";  break;
+                    case "D2":              textBoxes[i] = "2";  break;
+                    case "D3":              textBoxes[i] = "3";  break;
+                    case "D4":              textBoxes[i] = "4";  break;
+                    case "D5":              textBoxes[i] = "5";  break;
+                    case "D6":              textBoxes[i] = "6";  break;
+                    case "D7":              textBoxes[i] = "7";  break;
+                    case "D8":              textBoxes[i] = "8";  break;
+                    case "D9":              textBoxes[i] = "9";  break;
+                    case "Oem1":            textBoxes[i] = ":";  break;
+                    case "Oemplus":         textBoxes[i] = ";";  break;
+                    case "Oemcomma":        textBoxes[i] = ",";  break;
+                    case "OemMinus":        textBoxes[i] = "-";  break;
+                    case "OemPeriod":       textBoxes[i] = ".";  break;
+                    case "OemQuestion":     textBoxes[i] = "/";  break;
+                    case "Oemtilde":        textBoxes[i] = "@";  break;
+                    case "OemOpenBrackets": textBoxes[i] = "[";  break;
+                    case "Oem5":            textBoxes[i] = "\\"; break;
+                    case "Oem6":            textBoxes[i] = "]";  break;
+                    case "Oem7":            textBoxes[i] = "^";  break;
+                }
+            }
+
+            textBox_sc_speed_up.Text   = textBoxes[0];
+            textBox_sc_speed_down.Text = textBoxes[1];
+            textBox_sc_prev.Text       = textBoxes[2];
+            textBox_sc_rewind.Text     = textBoxes[3];
+            textBox_sc_start_stop.Text = textBoxes[4];
+            textBox_sc_forward.Text    = textBoxes[5];
+            textBox_sc_next.Text       = textBoxes[6];
+            textBox_sc_loop.Text       = textBoxes[7];
+            textBox_sc_auto.Text       = textBoxes[8];
         }
         private void Form2_Load(object sender, EventArgs e)
         {
@@ -99,6 +153,8 @@ namespace zerodori_listening_player
 
         private void button_apply_Click(object sender, EventArgs e)
         {
+            // 一緒に適用のが良いかも
+            // TODO
             if (current_item == items.APPLICATION)
             {
                 if (rewind_sec.Text == "")
@@ -120,7 +176,53 @@ namespace zerodori_listening_player
             }
             else if (current_item == items.SHORTCUTS)
             {
-                ;
+                string[] textBoxes = {
+                    textBox_sc_speed_up.Text,
+                    textBox_sc_speed_down.Text,
+                    textBox_sc_prev.Text,
+                    textBox_sc_rewind.Text,
+                    textBox_sc_start_stop.Text,
+                    textBox_sc_forward.Text,
+                    textBox_sc_next.Text,
+                    textBox_sc_loop.Text,
+                    textBox_sc_auto.Text
+                };
+
+                for(int i=0; i<textBoxes.Length; ++i) {
+                    switch(textBoxes[i]) {
+                        case "0":
+                        case "1":
+                        case "2":
+                        case "3":
+                        case "4":
+                        case "5":
+                        case "6":
+                        case "7":
+                        case "8":
+                        case "9":  textBoxes[i] = "D" + textBoxes[i]; break;
+                        case ":":  textBoxes[i] = "Oem1"; break;
+                        case ";":  textBoxes[i] = "Oemplus"; break;
+                        case ",":  textBoxes[i] = "Oemcomma"; break;
+                        case "-":  textBoxes[i] = "OemMinus"; break;
+                        case ".":  textBoxes[i] = "OemPeriod"; break;
+                        case "/":  textBoxes[i] = "OemQuestion"; break;
+                        case "@":  textBoxes[i] = "Oemtilde"; break;
+                        case "[":  textBoxes[i] = "OemOpenBrackets"; break;
+                        case "\\": textBoxes[i] = "Oem5"; break;
+                        case "]":  textBoxes[i] = "Oem6"; break;
+                        case "^":  textBoxes[i] = "Oem7"; break;
+                    }
+                }
+
+                Enum.TryParse<Keys>(textBoxes[0], out Form1.key_speed_up);
+                Enum.TryParse<Keys>(textBoxes[1], out Form1.key_speed_down);
+                Enum.TryParse<Keys>(textBoxes[2], out Form1.key_prev);
+                Enum.TryParse<Keys>(textBoxes[3], out Form1.key_rewind);
+                Enum.TryParse<Keys>(textBoxes[4], out Form1.key_start_stop);
+                Enum.TryParse<Keys>(textBoxes[5], out Form1.key_forward);
+                Enum.TryParse<Keys>(textBoxes[6], out Form1.key_next);
+                Enum.TryParse<Keys>(textBoxes[7], out Form1.key_loop);
+                Enum.TryParse<Keys>(textBoxes[8], out Form1.key_auto);
             }
 
         }
@@ -132,6 +234,8 @@ namespace zerodori_listening_player
             about_visible(false);
 
             // Applicationの項目表示
+            button_apply.Visible =
+            button_default.Visible = true;
             application_visible(true);
             set_backcolor(items.APPLICATION);
         }
@@ -143,6 +247,8 @@ namespace zerodori_listening_player
             about_visible(false);
 
             // Shortcutsの項目表示
+            button_apply.Visible =
+            button_default.Visible = true;
             shortcuts_visible(true);
             set_backcolor(items.SHORTCUTS);
         }
@@ -152,6 +258,8 @@ namespace zerodori_listening_player
             // 他の項目を全て非表示
             application_visible(false);
             shortcuts_visible(false);
+            button_apply.Visible =
+            button_default.Visible = false;
 
             // Aboutの項目表示
             about_visible(true);
@@ -193,8 +301,6 @@ namespace zerodori_listening_player
         // Applicationの項目表示
         private void application_visible(bool v)
         {
-            button_apply.Visible = v;
-            button_default.Visible = v;
             label_forward.Visible =
             label_rewind.Visible =
             label_sec1.Visible =
@@ -206,8 +312,6 @@ namespace zerodori_listening_player
         // Shortcutsの項目表示
         private void shortcuts_visible(bool v)
         {
-            button_apply.Visible = v;
-            button_default.Visible = v;
             label_sc_speed_up.Visible =
             label_sc_speed_down.Visible =
             label_sc_prev.Visible =
@@ -303,13 +407,9 @@ namespace zerodori_listening_player
             return "";
         }
 
-        private void TextBox_sc_speed_up_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = true;
-        }
-
         private void TextBox_sc_speed_up_KeyUp(object sender, KeyEventArgs e)
         {
+            Console.WriteLine("[" + e.KeyCode + "]" + "[" + e.KeyValue + "]");
             if(is_valid_key((int)e.KeyCode)){
                 textBox_sc_speed_up.Text = keycode_to_value(e.KeyCode);
             }
@@ -332,6 +432,97 @@ namespace zerodori_listening_player
         {
             textBox_sc_speed_down.Text = "";
             textBox_sc_speed_down.Focus();
+        }
+
+        private void TextBox_sc_prev_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(is_valid_key((int)e.KeyCode)){
+                textBox_sc_prev.Text = keycode_to_value(e.KeyCode);
+            }
+        }
+
+        private void Button_sc_cross_prev_Click(object sender, EventArgs e)
+        {
+            textBox_sc_prev.Text = "";
+            textBox_sc_prev.Focus();
+        }
+
+        private void TextBox_sc_rewind_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(is_valid_key((int)e.KeyCode)){
+                textBox_sc_rewind.Text = keycode_to_value(e.KeyCode);
+            }
+        }
+
+        private void Button_sc_cross_rewind_Click(object sender, EventArgs e)
+        {
+            textBox_sc_rewind.Text = "";
+            textBox_sc_rewind.Focus();
+        }
+
+        private void TextBox_sc_start_stop_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(is_valid_key((int)e.KeyCode)){
+                textBox_sc_start_stop.Text = keycode_to_value(e.KeyCode);
+            }
+        }
+
+        private void Button_sc_cross_start_stop_Click(object sender, EventArgs e)
+        {
+            textBox_sc_start_stop.Text = "";
+            textBox_sc_start_stop.Focus();
+        }
+
+        private void TextBox_sc_forward_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(is_valid_key((int)e.KeyCode)){
+                textBox_sc_forward.Text = keycode_to_value(e.KeyCode);
+            }
+        }
+
+        private void Button_sc_cross_forward_Click(object sender, EventArgs e)
+        {
+            textBox_sc_forward.Text = "";
+            textBox_sc_forward.Focus();
+        }
+
+        private void TextBox_sc_next_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(is_valid_key((int)e.KeyCode)){
+                textBox_sc_next.Text = keycode_to_value(e.KeyCode);
+            }
+        }
+
+        private void Button_sc_cross_next_Click(object sender, EventArgs e)
+        {
+            textBox_sc_next.Text = "";
+            textBox_sc_next.Focus();
+        }
+
+        private void TextBox_sc_loop_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(is_valid_key((int)e.KeyCode)){
+                textBox_sc_loop.Text = keycode_to_value(e.KeyCode);
+            }
+        }
+
+        private void Button_sc_cross_loop_Click(object sender, EventArgs e)
+        {
+            textBox_sc_loop.Text = "";
+            textBox_sc_loop.Focus();
+        }
+
+        private void TextBox_sc_auto_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(is_valid_key((int)e.KeyCode)){
+                textBox_sc_auto.Text = keycode_to_value(e.KeyCode);
+            }
+        }
+
+        private void Button_sc_cross_auto_Click(object sender, EventArgs e)
+        {
+            textBox_sc_auto.Text = "";
+            textBox_sc_auto.Focus();
         }
     }
 }

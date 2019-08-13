@@ -129,10 +129,10 @@
   </data>
   <data name="button_sc_cross_speed_up.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAHdElNRQfjCA0DLTcEzxEpAAAAbklEQVQ4T5WNAQ7AIAgD
-        /f+n2UrSTbFAMLlMzpYtHDMbwx6H96ODij0vZUXMfRcfmiXq/RhcJEtSL2UIZ2UgJWCpKgMpSVcGUgKW
-        uyVahlK15BZJOPXHUPwJqPf/0pRJzEnZsef9cJjA3vUww9YDqG+/XfxrxVIAAAAASUVORK5CYII=
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        xAAADsQBlSsOGwAAAAd0SU1FB+MIDQMtNwTPESkAAABuSURBVDhPlY0BDsAgCAP9/6fZStJNsUAwuUzO
+        li0cMxvDHof3o4OKPS9lRcx9Fx+aJer9GFwkS1IvZQhnZSAlYKkqAylJVwZSApa7JVqGUrXkFkk49cdQ
+        /Amo9//SlEnMSdmx5/1wmMDe9TDD1gOob79d/GvFUgAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="button_sc_cross_speed_down.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
