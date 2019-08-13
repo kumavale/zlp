@@ -141,7 +141,7 @@
             // 
             // button_apply
             // 
-            this.button_apply.Location = new System.Drawing.Point(184, 363);
+            this.button_apply.Location = new System.Drawing.Point(184, 395);
             this.button_apply.Name = "button_apply";
             this.button_apply.Size = new System.Drawing.Size(128, 32);
             this.button_apply.TabIndex = 6;
@@ -151,9 +151,9 @@
             // 
             // button_default
             // 
-            this.button_default.Location = new System.Drawing.Point(236, 71);
+            this.button_default.Location = new System.Drawing.Point(230, 367);
             this.button_default.Name = "button_default";
-            this.button_default.Size = new System.Drawing.Size(64, 22);
+            this.button_default.Size = new System.Drawing.Size(82, 22);
             this.button_default.TabIndex = 7;
             this.button_default.Tag = "";
             this.button_default.Text = "Default";
@@ -301,6 +301,7 @@
             // label_sc_speed_up
             // 
             this.label_sc_speed_up.AutoSize = true;
+            this.label_sc_speed_up.BackColor = System.Drawing.SystemColors.Control;
             this.label_sc_speed_up.Location = new System.Drawing.Point(118, 155);
             this.label_sc_speed_up.Name = "label_sc_speed_up";
             this.label_sc_speed_up.Size = new System.Drawing.Size(56, 13);
@@ -333,6 +334,7 @@
             this.textBox_sc_speed_up.Size = new System.Drawing.Size(82, 20);
             this.textBox_sc_speed_up.TabIndex = 23;
             this.textBox_sc_speed_up.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox_sc_speed_up_KeyPress);
+            this.textBox_sc_speed_up.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_sc_speed_up_KeyUp);
             // 
             // button_sc_cross_speed_up
             // 
@@ -345,6 +347,7 @@
             this.button_sc_cross_speed_up.Size = new System.Drawing.Size(18, 18);
             this.button_sc_cross_speed_up.TabIndex = 24;
             this.button_sc_cross_speed_up.UseVisualStyleBackColor = false;
+            this.button_sc_cross_speed_up.Click += new System.EventHandler(this.Button_sc_cross_speed_up_Click);
             // 
             // label_sc_rewind
             // 
@@ -366,6 +369,7 @@
             this.button_sc_cross_speed_down.Size = new System.Drawing.Size(18, 18);
             this.button_sc_cross_speed_down.TabIndex = 27;
             this.button_sc_cross_speed_down.UseVisualStyleBackColor = false;
+            this.button_sc_cross_speed_down.Click += new System.EventHandler(this.Button_sc_cross_speed_down_Click);
             // 
             // textBox_sc_speed_down
             // 
@@ -374,6 +378,7 @@
             this.textBox_sc_speed_down.Name = "textBox_sc_speed_down";
             this.textBox_sc_speed_down.Size = new System.Drawing.Size(82, 20);
             this.textBox_sc_speed_down.TabIndex = 26;
+            this.textBox_sc_speed_down.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_sc_speed_down_KeyUp);
             // 
             // label_sc_auto
             // 
@@ -564,7 +569,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 411);
+            this.ClientSize = new System.Drawing.Size(330, 439);
             this.Controls.Add(this.button_sc_cross_auto);
             this.Controls.Add(this.textBox_sc_auto);
             this.Controls.Add(this.button_sc_cross_loop);

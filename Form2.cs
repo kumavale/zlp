@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using System.Diagnostics;
+using System.Configuration;
 
 namespace zerodori_listening_player
 {
@@ -23,7 +24,8 @@ namespace zerodori_listening_player
             SHORTCUTS,
             ABOUT
         }
-        items current_item = items.APPLICATION;
+        private items current_item;
+        //private System.Windows.Forms.TextBox[] textBoxes;
 
         public Form2()
         {
@@ -32,6 +34,7 @@ namespace zerodori_listening_player
             forward_sec.MaxLength = 3;
 
             // 初期画面はアプリケーション設定
+            current_item = items.APPLICATION;
 
             // 設定の読み込み
             // Application
@@ -47,7 +50,18 @@ namespace zerodori_listening_player
             textBox_sc_next.Text = Form1.key_next.ToString();
             textBox_sc_loop.Text = Form1.key_loop.ToString();
             textBox_sc_auto.Text = Form1.key_auto.ToString();
+            if(textBox_sc_speed_up.Text == "None")   textBox_sc_speed_up.Text = "";
+            if(textBox_sc_speed_down.Text == "None") textBox_sc_speed_up.Text = "";
+            if(textBox_sc_prev.Text == "None")       textBox_sc_speed_up.Text = "";
+            if(textBox_sc_rewind.Text == "None")     textBox_sc_speed_up.Text = "";
+            if(textBox_sc_start_stop.Text == "None") textBox_sc_speed_up.Text = "";
+            if(textBox_sc_forward.Text == "None")    textBox_sc_speed_up.Text = "";
+            if(textBox_sc_next.Text == "None")       textBox_sc_speed_up.Text = "";
+            if(textBox_sc_loop.Text == "None")       textBox_sc_speed_up.Text = "";
+            if(textBox_sc_auto.Text == "None")       textBox_sc_speed_up.Text = "";
             // About
+            label_version.Text = "Version: " + ConfigurationManager.AppSettings["version"];
+            label_author.Text = "Author: " + ConfigurationManager.AppSettings["authors"];
             linkLabel_license.Text = "MIT";
             linkLabel_source.Text = "github.com/yorimoi/zlp";
 
@@ -60,8 +74,6 @@ namespace zerodori_listening_player
         private void Form2_Load(object sender, EventArgs e)
         {
             button_application.PerformClick();
-            // ↓だめ
-            button_application.Focus();
         }
 
         private void button_default_Click(object sender, EventArgs e)
@@ -73,7 +85,15 @@ namespace zerodori_listening_player
             }
             else if (current_item == items.SHORTCUTS)
             {
-                ;
+                textBox_sc_speed_up.Text = "Up";
+                textBox_sc_speed_down.Text = "Down";
+                textBox_sc_prev.Text = "P";
+                textBox_sc_rewind.Text = "Left";
+                textBox_sc_start_stop.Text = "Space";
+                textBox_sc_forward.Text = "Right";
+                textBox_sc_next.Text = "N";
+                textBox_sc_loop.Text = "L";
+                textBox_sc_auto.Text = "A";
             }
         }
 
@@ -174,19 +194,20 @@ namespace zerodori_listening_player
         private void application_visible(bool v)
         {
             button_apply.Visible = v;
+            button_default.Visible = v;
             label_forward.Visible =
             label_rewind.Visible =
             label_sec1.Visible =
             label_sec2.Visible =
             rewind_sec.Visible =
-            forward_sec.Visible =
-            button_default.Visible = v;
+            forward_sec.Visible = v;
         }
 
         // Shortcutsの項目表示
         private void shortcuts_visible(bool v)
         {
             button_apply.Visible = v;
+            button_default.Visible = v;
             label_sc_speed_up.Visible =
             label_sc_speed_down.Visible =
             label_sc_prev.Visible =
@@ -231,29 +252,86 @@ namespace zerodori_listening_player
         }
 
         // ショートカットの有効キー確認
-        private bool is_valid_key(char key)
+        private bool is_valid_key(int code)
         {
             if(
-                ('A' <= key && key <= 'Z') ||
-                ('0' <= key && key <= '9') ||
-                (':' <= key && key <= '@') ||
-                ('[' <= key && key <= '^') ||
-                (17  <= key && key <= 20)  ||  // Space,PageUp,PageDown,End
-                (27  <= key             )  ||  // Home
-                (32  <= key && key <= 35)  ||  // Arrow keys
-                (112 <= key && key <= 123)     // F1 - F12
+                ('A' <= code && code <= 'Z') ||
+                ('0' <= code && code <= '9') ||
+                (186 <= code && code <= 192) ||  // :;,-./@
+                (219 <= code && code <= 222) ||  // [\]^
+                (32  <= code && code <=  40) ||  // Space,PageUp,PageDown,End,Home,Arrow keys
+                (112 <= code && code <= 123) ||  // F1 - F12
+                (8   == code)                ||  // BackSpace
+                (46  == code)                    // Delete
                ){
                 return true;
             }
             return false;
         }
 
+        private string keycode_to_value(Keys key)
+        {
+            int code = (int)key;
+            if(
+                ('A' <= code && code <= 'Z') ||
+                ('0' <= code && code <= '9')
+               ){
+                return ((char)code).ToString();
+            }
+            if(
+                (32  <= code && code <=  40) ||  // Space,PageUp,PageDown,End,Home,Arrow keys
+                (112 <= code && code <= 123)     // F1 - F12
+              ) {
+                return key.ToString();
+            }
+            switch(code)
+            {
+                case   8:
+                case  46: return "";
+                case 186: return ":";
+                case 187: return ";";
+                case 188: return ",";
+                case 189: return "-";
+                case 190: return ".";
+                case 191: return "/";
+                case 192: return "@";
+                case 219: return "[";
+                case 220: return "\\";
+                case 221: return "]";
+                case 222: return "^";
+            }
+            return "";
+        }
+
         private void TextBox_sc_speed_up_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(is_valid_key(e.KeyChar)){
-                e.Handled = true;
-                Console.WriteLine("[" + e.KeyChar + "]");
+            e.Handled = true;
+        }
+
+        private void TextBox_sc_speed_up_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(is_valid_key((int)e.KeyCode)){
+                textBox_sc_speed_up.Text = keycode_to_value(e.KeyCode);
             }
+        }
+
+        private void Button_sc_cross_speed_up_Click(object sender, EventArgs e)
+        {
+            textBox_sc_speed_up.Text = "";
+            textBox_sc_speed_up.Focus();
+        }
+
+        private void TextBox_sc_speed_down_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(is_valid_key((int)e.KeyCode)){
+                textBox_sc_speed_down.Text = keycode_to_value(e.KeyCode);
+            }
+        }
+
+        private void Button_sc_cross_speed_down_Click(object sender, EventArgs e)
+        {
+            textBox_sc_speed_down.Text = "";
+            textBox_sc_speed_down.Focus();
         }
     }
 }
