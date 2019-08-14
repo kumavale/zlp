@@ -96,12 +96,13 @@
             // 
             this.rewind_sec.Location = new System.Drawing.Point(230, 19);
             this.rewind_sec.Name = "rewind_sec";
-            this.rewind_sec.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.rewind_sec.Size = new System.Drawing.Size(32, 20);
             this.rewind_sec.TabIndex = 1;
             this.rewind_sec.TabStop = false;
             this.rewind_sec.Tag = "";
             this.rewind_sec.Text = "5";
+            this.rewind_sec.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.rewind_sec.TextChanged += new System.EventHandler(this.Application_TextChanged);
             // 
             // label_sec1
             // 
@@ -112,6 +113,7 @@
             this.label_sec1.TabIndex = 2;
             this.label_sec1.Tag = "";
             this.label_sec1.Text = "sec";
+            this.label_sec1.Click += new System.EventHandler(this.Label_sec1_Click);
             // 
             // label_sec2
             // 
@@ -122,17 +124,19 @@
             this.label_sec2.TabIndex = 5;
             this.label_sec2.Tag = "";
             this.label_sec2.Text = "sec";
+            this.label_sec2.Click += new System.EventHandler(this.Label_sec2_Click);
             // 
             // forward_sec
             // 
             this.forward_sec.Location = new System.Drawing.Point(230, 45);
             this.forward_sec.Name = "forward_sec";
-            this.forward_sec.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.forward_sec.Size = new System.Drawing.Size(32, 20);
             this.forward_sec.TabIndex = 4;
             this.forward_sec.TabStop = false;
             this.forward_sec.Tag = "";
             this.forward_sec.Text = "5";
+            this.forward_sec.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.forward_sec.TextChanged += new System.EventHandler(this.Application_TextChanged);
             // 
             // label_forward
             // 
@@ -665,6 +669,7 @@
             this.trackBar_opacity.TabIndex = 10;
             this.trackBar_opacity.TabStop = false;
             this.trackBar_opacity.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar_opacity.ValueChanged += new System.EventHandler(this.Application_TextChanged);
             // 
             // Form2
             // 
@@ -726,6 +731,7 @@
             this.MinimizeBox = false;
             this.Name = "Form2";
             this.Text = "zlp - Setting";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
             this.Load += new System.EventHandler(this.Form2_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form2_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.picture_icon)).EndInit();

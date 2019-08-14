@@ -33,6 +33,10 @@ namespace zerodori_listening_player
         }
         private items current_item;
 
+        const string title = "zlp - Setting";
+        const string changing_title = "*zlp - Setting";
+
+
         public Form2(Form1 form)
         {
             f1 = form;
@@ -131,18 +135,33 @@ namespace zerodori_listening_player
             textBox_sc_next.Text       = textBoxes[6];
             textBox_sc_loop.Text       = textBoxes[7];
             textBox_sc_auto.Text       = textBoxes[8];
+
+            changed(false);
         }
         private void Form2_Load(object sender, EventArgs e)
         {
             button_application.PerformClick();
         }
 
+        private void changed(bool c)
+        {
+            if(c) {
+                this.Text = changing_title;
+            }
+            else {
+                this.Text = title;
+            }
+        }
+
         private void button_default_Click(object sender, EventArgs e)
         {
+            changed(true);
+
             if (current_item == items.APPLICATION)
             {
                 rewind_sec.Text  = "5";
                 forward_sec.Text = "5";
+                trackBar_opacity.Value = 100;
             }
             else if (current_item == items.SHORTCUTS)
             {
@@ -161,13 +180,10 @@ namespace zerodori_listening_player
         private void button_apply_Click(object sender, EventArgs e)
         {
             // Application
-            if (rewind_sec.Text == "")
-                rewind_sec.Text = "5";
-            if (forward_sec.Text == "")
+            if(int.TryParse(rewind_sec.Text,  out Form1.rewind_sec)  == false)
+                rewind_sec.Text  = "5";
+            if(int.TryParse(forward_sec.Text, out Form1.forward_sec) == false)
                 forward_sec.Text = "5";
-
-            Form1.rewind_sec  = int.Parse(rewind_sec.Text);
-            Form1.forward_sec = int.Parse(forward_sec.Text);
 
             if (Form1.rewind_sec < 0) {
                 Form1.rewind_sec *= -1;
@@ -230,6 +246,7 @@ namespace zerodori_listening_player
             Enum.TryParse<Keys>(textBoxes[7], out Form1.key_loop);
             Enum.TryParse<Keys>(textBoxes[8], out Form1.key_auto);
 
+            changed(false);
         }
 
         private void Button_application_Click(object sender, EventArgs e)
@@ -418,59 +435,69 @@ namespace zerodori_listening_player
         {
             if(is_valid_key((int)e.KeyCode)){
                 ((TextBox)sender).Text = keycode_to_value(e.KeyCode);
+                changed(true);
             }
         }
 
         private void Button_sc_cross_speed_up_Click(object sender, EventArgs e)
         {
+            changed(true);
             textBox_sc_speed_up.Text = "";
             textBox_sc_speed_up.Focus();
         }
 
         private void Button_sc_cross_speed_down_Click(object sender, EventArgs e)
         {
+            changed(true);
             textBox_sc_speed_down.Text = "";
             textBox_sc_speed_down.Focus();
         }
 
         private void Button_sc_cross_prev_Click(object sender, EventArgs e)
         {
+            changed(true);
             textBox_sc_prev.Text = "";
             textBox_sc_prev.Focus();
         }
 
         private void Button_sc_cross_rewind_Click(object sender, EventArgs e)
         {
+            changed(true);
             textBox_sc_rewind.Text = "";
             textBox_sc_rewind.Focus();
         }
 
         private void Button_sc_cross_start_stop_Click(object sender, EventArgs e)
         {
+            changed(true);
             textBox_sc_start_stop.Text = "";
             textBox_sc_start_stop.Focus();
         }
 
         private void Button_sc_cross_forward_Click(object sender, EventArgs e)
         {
+            changed(true);
             textBox_sc_forward.Text = "";
             textBox_sc_forward.Focus();
         }
 
         private void Button_sc_cross_next_Click(object sender, EventArgs e)
         {
+            changed(true);
             textBox_sc_next.Text = "";
             textBox_sc_next.Focus();
         }
 
         private void Button_sc_cross_loop_Click(object sender, EventArgs e)
         {
+            changed(true);
             textBox_sc_loop.Text = "";
             textBox_sc_loop.Focus();
         }
 
         private void Button_sc_cross_auto_Click(object sender, EventArgs e)
         {
+            changed(true);
             textBox_sc_auto.Text = "";
             textBox_sc_auto.Focus();
         }
@@ -502,6 +529,47 @@ namespace zerodori_listening_player
         private void TextBox_sc_Leave(object sender, EventArgs e)
         {
             ((TextBox)sender).BackColor = white;
+        }
+
+        private void Application_TextChanged(object sender, EventArgs e)
+        {
+            changed(true);
+        }
+
+        private void Label_sec1_Click(object sender, EventArgs e)
+        {
+            rewind_sec.Focus();
+        }
+
+        private void Label_sec2_Click(object sender, EventArgs e)
+        {
+            forward_sec.Focus();
+        }
+
+        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(e.CloseReason == CloseReason.UserClosing && this.Text == changing_title)
+            {
+                string message = "Do you want to save changes?";
+                DialogResult result = MessageBox.Show(
+                    message,
+                    "zlp",
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    button_apply_Click(null, null);
+                }
+                else if (result == DialogResult.No)
+                {
+                    // Do nothing
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
+            }
         }
     }
 }
