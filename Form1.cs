@@ -95,6 +95,7 @@ namespace zerodori_listening_player
             };
 
             // ボタンをマウスオーバー時のテキスト表示
+            // TODO
             ToolTip tt = new ToolTip();
             tt.InitialDelay = 0;
             tt.SetToolTip(button_prev, "prev(P)");
@@ -232,6 +233,7 @@ namespace zerodori_listening_player
             Enum.TryParse<Keys>(ConfigurationManager.AppSettings["key_auto"], out key_auto);
             Enum.TryParse<Keys>(ConfigurationManager.AppSettings["key_start_stop"], out key_start_stop);
             Enum.TryParse<Keys>(ConfigurationManager.AppSettings["key_restart"], out key_restart);
+            this.Opacity = double.Parse(ConfigurationManager.AppSettings["opacity"]);
 
             init();
         }
@@ -547,6 +549,7 @@ namespace zerodori_listening_player
             cfg.AppSettings.Settings["key_auto"].Value = key_auto.ToString();
             cfg.AppSettings.Settings["key_start_stop"].Value = key_start_stop.ToString();
             cfg.AppSettings.Settings["key_restart"].Value = key_restart.ToString();
+            cfg.AppSettings.Settings["opacity"].Value = this.Opacity.ToString();
 
             cfg.Save();
         }
@@ -565,7 +568,7 @@ namespace zerodori_listening_player
 
         private void settingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form2 form2 = new Form2();
+            Form2 form2 = new Form2(this);
             form2.StartPosition = FormStartPosition.CenterParent;
             form2.ShowDialog(this);
             form2.Dispose();

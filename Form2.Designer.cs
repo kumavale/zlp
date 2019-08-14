@@ -76,7 +76,10 @@
             this.button_sc_cross_auto = new System.Windows.Forms.Button();
             this.textBox_sc_auto = new System.Windows.Forms.TextBox();
             this.textBox_sc_speed_up = new System.Windows.Forms.TextBox();
+            this.label_opacity = new System.Windows.Forms.Label();
+            this.trackBar_opacity = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.picture_icon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_opacity)).BeginInit();
             this.SuspendLayout();
             // 
             // label_rewind
@@ -644,11 +647,32 @@
             this.textBox_sc_speed_up.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_sc_KeyUp);
             this.textBox_sc_speed_up.Leave += new System.EventHandler(this.TextBox_sc_Leave);
             // 
+            // label_opacity
+            // 
+            this.label_opacity.AutoSize = true;
+            this.label_opacity.Location = new System.Drawing.Point(118, 74);
+            this.label_opacity.Name = "label_opacity";
+            this.label_opacity.Size = new System.Drawing.Size(46, 13);
+            this.label_opacity.TabIndex = 49;
+            this.label_opacity.Text = "Opacity:";
+            // 
+            // trackBar_opacity
+            // 
+            this.trackBar_opacity.Location = new System.Drawing.Point(222, 71);
+            this.trackBar_opacity.Maximum = 100;
+            this.trackBar_opacity.Name = "trackBar_opacity";
+            this.trackBar_opacity.Size = new System.Drawing.Size(90, 45);
+            this.trackBar_opacity.TabIndex = 10;
+            this.trackBar_opacity.TabStop = false;
+            this.trackBar_opacity.TickStyle = System.Windows.Forms.TickStyle.None;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(330, 297);
+            this.Controls.Add(this.trackBar_opacity);
+            this.Controls.Add(this.label_opacity);
             this.Controls.Add(this.button_sc_cross_speed_up);
             this.Controls.Add(this.textBox_sc_speed_up);
             this.Controls.Add(this.button_sc_cross_auto);
@@ -705,6 +729,7 @@
             this.Load += new System.EventHandler(this.Form2_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form2_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.picture_icon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_opacity)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -759,5 +784,7 @@
         private System.Windows.Forms.Button button_sc_cross_auto;
         private System.Windows.Forms.TextBox textBox_sc_auto;
         private System.Windows.Forms.TextBox textBox_sc_speed_up;
+        private System.Windows.Forms.Label label_opacity;
+        private System.Windows.Forms.TrackBar trackBar_opacity;
     }
 }

@@ -24,6 +24,8 @@ namespace zerodori_listening_player
         readonly Color white = Color.White;
         readonly Color none  = Color.Transparent;
 
+        Form1 f1;
+
         enum items {
             APPLICATION,
             SHORTCUTS,
@@ -31,8 +33,10 @@ namespace zerodori_listening_player
         }
         private items current_item;
 
-        public Form2()
+        public Form2(Form1 form)
         {
+            f1 = form;
+
             InitializeComponent();
             rewind_sec.MaxLength  = 3;
             forward_sec.MaxLength = 3;
@@ -44,6 +48,7 @@ namespace zerodori_listening_player
             // Application
             rewind_sec.Text  = Form1.rewind_sec.ToString();
             forward_sec.Text = Form1.forward_sec.ToString();
+            trackBar_opacity.Value = (int)(f1.Opacity * 100);
             // Shortcuts
             textBox_sc_speed_up.Text = Form1.key_speed_up.ToString();
             textBox_sc_speed_down.Text = Form1.key_speed_down.ToString();
@@ -155,77 +160,75 @@ namespace zerodori_listening_player
 
         private void button_apply_Click(object sender, EventArgs e)
         {
-            // 一緒に適用のが良いかも
-            // TODO
-            if (current_item == items.APPLICATION)
-            {
-                if (rewind_sec.Text == "")
-                    rewind_sec.Text = "5";
-                if (forward_sec.Text == "")
-                    forward_sec.Text = "5";
+            // Application
+            if (rewind_sec.Text == "")
+                rewind_sec.Text = "5";
+            if (forward_sec.Text == "")
+                forward_sec.Text = "5";
 
-                Form1.rewind_sec  = int.Parse(rewind_sec.Text);
-                Form1.forward_sec = int.Parse(forward_sec.Text);
+            Form1.rewind_sec  = int.Parse(rewind_sec.Text);
+            Form1.forward_sec = int.Parse(forward_sec.Text);
 
-                if (Form1.rewind_sec < 0) {
-                    Form1.rewind_sec *= -1;
-                    rewind_sec.Text = Form1.rewind_sec.ToString();
-                }
-                if (Form1.forward_sec < 0) {
-                    Form1.forward_sec *= -1;
-                    forward_sec.Text = Form1.forward_sec.ToString();
+            if (Form1.rewind_sec < 0) {
+                Form1.rewind_sec *= -1;
+                rewind_sec.Text = Form1.rewind_sec.ToString();
+            }
+            if (Form1.forward_sec < 0) {
+                Form1.forward_sec *= -1;
+                forward_sec.Text = Form1.forward_sec.ToString();
+            }
+
+            f1.Opacity = trackBar_opacity.Value * 0.01;
+
+
+            // Shortcuts
+            string[] textBoxes = {
+                textBox_sc_speed_up.Text,
+                textBox_sc_speed_down.Text,
+                textBox_sc_prev.Text,
+                textBox_sc_rewind.Text,
+                textBox_sc_start_stop.Text,
+                textBox_sc_forward.Text,
+                textBox_sc_next.Text,
+                textBox_sc_loop.Text,
+                textBox_sc_auto.Text
+            };
+
+            for(int i=0; i<textBoxes.Length; ++i) {
+                switch(textBoxes[i]) {
+                    case "0":
+                    case "1":
+                    case "2":
+                    case "3":
+                    case "4":
+                    case "5":
+                    case "6":
+                    case "7":
+                    case "8":
+                    case "9":  textBoxes[i] = "D" + textBoxes[i]; break;
+                    case ":":  textBoxes[i] = "Oem1"; break;
+                    case ";":  textBoxes[i] = "Oemplus"; break;
+                    case ",":  textBoxes[i] = "Oemcomma"; break;
+                    case "-":  textBoxes[i] = "OemMinus"; break;
+                    case ".":  textBoxes[i] = "OemPeriod"; break;
+                    case "/":  textBoxes[i] = "OemQuestion"; break;
+                    case "@":  textBoxes[i] = "Oemtilde"; break;
+                    case "[":  textBoxes[i] = "OemOpenBrackets"; break;
+                    case "\\": textBoxes[i] = "Oem5"; break;
+                    case "]":  textBoxes[i] = "Oem6"; break;
+                    case "^":  textBoxes[i] = "Oem7"; break;
                 }
             }
-            else if (current_item == items.SHORTCUTS)
-            {
-                string[] textBoxes = {
-                    textBox_sc_speed_up.Text,
-                    textBox_sc_speed_down.Text,
-                    textBox_sc_prev.Text,
-                    textBox_sc_rewind.Text,
-                    textBox_sc_start_stop.Text,
-                    textBox_sc_forward.Text,
-                    textBox_sc_next.Text,
-                    textBox_sc_loop.Text,
-                    textBox_sc_auto.Text
-                };
 
-                for(int i=0; i<textBoxes.Length; ++i) {
-                    switch(textBoxes[i]) {
-                        case "0":
-                        case "1":
-                        case "2":
-                        case "3":
-                        case "4":
-                        case "5":
-                        case "6":
-                        case "7":
-                        case "8":
-                        case "9":  textBoxes[i] = "D" + textBoxes[i]; break;
-                        case ":":  textBoxes[i] = "Oem1"; break;
-                        case ";":  textBoxes[i] = "Oemplus"; break;
-                        case ",":  textBoxes[i] = "Oemcomma"; break;
-                        case "-":  textBoxes[i] = "OemMinus"; break;
-                        case ".":  textBoxes[i] = "OemPeriod"; break;
-                        case "/":  textBoxes[i] = "OemQuestion"; break;
-                        case "@":  textBoxes[i] = "Oemtilde"; break;
-                        case "[":  textBoxes[i] = "OemOpenBrackets"; break;
-                        case "\\": textBoxes[i] = "Oem5"; break;
-                        case "]":  textBoxes[i] = "Oem6"; break;
-                        case "^":  textBoxes[i] = "Oem7"; break;
-                    }
-                }
-
-                Enum.TryParse<Keys>(textBoxes[0], out Form1.key_speed_up);
-                Enum.TryParse<Keys>(textBoxes[1], out Form1.key_speed_down);
-                Enum.TryParse<Keys>(textBoxes[2], out Form1.key_prev);
-                Enum.TryParse<Keys>(textBoxes[3], out Form1.key_rewind);
-                Enum.TryParse<Keys>(textBoxes[4], out Form1.key_start_stop);
-                Enum.TryParse<Keys>(textBoxes[5], out Form1.key_forward);
-                Enum.TryParse<Keys>(textBoxes[6], out Form1.key_next);
-                Enum.TryParse<Keys>(textBoxes[7], out Form1.key_loop);
-                Enum.TryParse<Keys>(textBoxes[8], out Form1.key_auto);
-            }
+            Enum.TryParse<Keys>(textBoxes[0], out Form1.key_speed_up);
+            Enum.TryParse<Keys>(textBoxes[1], out Form1.key_speed_down);
+            Enum.TryParse<Keys>(textBoxes[2], out Form1.key_prev);
+            Enum.TryParse<Keys>(textBoxes[3], out Form1.key_rewind);
+            Enum.TryParse<Keys>(textBoxes[4], out Form1.key_start_stop);
+            Enum.TryParse<Keys>(textBoxes[5], out Form1.key_forward);
+            Enum.TryParse<Keys>(textBoxes[6], out Form1.key_next);
+            Enum.TryParse<Keys>(textBoxes[7], out Form1.key_loop);
+            Enum.TryParse<Keys>(textBoxes[8], out Form1.key_auto);
 
         }
 
@@ -308,7 +311,9 @@ namespace zerodori_listening_player
             label_sec1.Visible =
             label_sec2.Visible =
             rewind_sec.Visible =
-            forward_sec.Visible = v;
+            forward_sec.Visible =
+            label_opacity.Visible =
+            trackBar_opacity.Visible = v;
         }
 
         // Shortcutsの項目表示
