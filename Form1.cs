@@ -257,7 +257,7 @@ namespace zerodori_listening_player
             mp.settings.rate = double.Parse(list_speed.Text);
             f = sh.NameSpace(Path.GetDirectoryName(mp.URL));
             fi = f.ParseName(mp3_file);
-            mp3_number.Text = int.Parse(f.GetDetailsOf(fi, SHARP)).ToString("000");
+            mp3_number.Text = mp3_file.Substring(0, mp3_file.IndexOf("."));
             playing = false;
             label_title.Left = 10;
             freeze = 0;
