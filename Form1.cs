@@ -382,81 +382,94 @@ namespace zerodori_listening_player
             Window = System.Security.Permissions.UIPermissionWindow.AllWindows)]
         protected override bool ProcessDialogKey(Keys keyData)
         {
-            // 左キーで 5秒戻り
+            // XX秒戻り
             if ((keyData & Keys.KeyCode) == key_rewind)
             {
                 rewind();
-                return true;
             }
-            // 右キーで 5秒送り
-            else if ((keyData & Keys.KeyCode) == key_forward)
+
+            // XX秒送り
+            if ((keyData & Keys.KeyCode) == key_forward)
             {
                 forward();
-                return true;
             }
-            // 上キーで スピードUp
-            else if ((keyData & Keys.KeyCode) == key_speed_up)
+
+            // スピードUp
+            if ((keyData & Keys.KeyCode) == key_speed_up)
             {
                 ++speed_idx;
                 if (speed_idx >= list_speed.MaxDropDownItems - 1)
                     speed_idx = list_speed.MaxDropDownItems - 2;
                 list_speed.SelectedIndex = speed_idx;
                 mp.settings.rate = double.Parse(list_speed.Text);
-                return true;
             }
-            // 下キーで スピードDown
-            else if ((keyData & Keys.KeyCode) == key_speed_down)
+
+            // スピードDown
+            if ((keyData & Keys.KeyCode) == key_speed_down)
             {
                 --speed_idx;
                 if (speed_idx < 0)
                     speed_idx = 0;
                 list_speed.SelectedIndex = speed_idx;
                 mp.settings.rate = double.Parse(list_speed.Text);
-                return true;
             }
-            // Pキーで 前の音声
-            else if ((keyData & Keys.KeyCode) == key_prev)
+
+            // 前の音声
+            if ((keyData & Keys.KeyCode) == key_prev)
             {
                 shift_sound(SHIFT.PREV);
-                return true;
             }
-            // Nキーで 次の音声
-            else if ((keyData & Keys.KeyCode) == key_next)
+
+            // 次の音声
+            if ((keyData & Keys.KeyCode) == key_next)
             {
                 shift_sound(SHIFT.NEXT);
-                return true;
             }
-            // Lキーで ループ on/off
-            else if ((keyData & Keys.KeyCode) == key_loop)
+
+            // ループ on/off
+            if ((keyData & Keys.KeyCode) == key_loop)
             {
                 is_loop = !is_loop;
                 button_loop.BackColor = is_loop ? Color.LightGray : SystemColors.Control;
-                return true;
             }
-            // Aキーで 自動再生 on/off
-            else if ((keyData & Keys.KeyCode) == key_auto)
+
+            // 自動再生 on/off
+            if ((keyData & Keys.KeyCode) == key_auto)
             {
                 auto_play = !auto_play;
                 button_auto.BackColor = auto_play ? Color.LightGray : SystemColors.Control;
-                return true;
             }
-            // スペースキーでstart/stop
-            else if ((keyData & Keys.KeyCode) == key_start_stop)
+
+            // start/stop
+            if ((keyData & Keys.KeyCode) == key_start_stop)
             {
                 playing = !playing;
                 mp_ctl();
-                return true;
             }
-            // エンターキーで restart
-            else if ((keyData & Keys.KeyCode) == key_restart)
+
+            // restart
+            if ((keyData & Keys.KeyCode) == key_restart)
             {
                 if (!mp3_number.Focused) {
                     mp.controls.currentPosition = 0;
                     bar_seek.Value = 0;
                     playing = true;
                     mp_ctl();
-                    return true;
                 }
+            }
+
+            switch (keyData)
+            {
+                case Keys.Right:
+                case Keys.Left:
+                case Keys.Up:
+                case Keys.Down:
+                case Keys.Space:
+                    return true;
+            }
+            if ((keyData & Keys.KeyCode) == Keys.Enter && !mp3_number.Focused)
+            {
+                    return true;
             }
 
             return base.ProcessDialogKey(keyData);
