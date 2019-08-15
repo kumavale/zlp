@@ -355,7 +355,8 @@ namespace zerodori_listening_player
             {
                 button_start_stop.Focus();
                 mp3_number.Text = mp3_number.Text.PadLeft(3, '0');
-                mp3_now = int.Parse(mp3_number.Text);
+                mp3_now = Array.FindIndex(mp3_file_paths,
+                    s => Path.GetFileName(s) == mp3_number.Text + ".mp3") + 1;
 
                 if (mp3_now < 1 || mp3_count < mp3_now)
                 {
