@@ -114,8 +114,7 @@ namespace zerodori_listening_player
                 if (mp.playState == WMPPlayState.wmppsPlaying || mp.playState == WMPPlayState.wmppsPaused)
                 {
                     bar_seek.Maximum = (int)(mp.controls.currentItem.duration);
-                    //bar_seek.Maximum = mp3_length;
-                    bar_seek.Value = (int)(mp.controls.currentPosition);
+                    bar_seek.Value = (int)(mp.controls.currentPosition) <= bar_seek.Maximum ? (int)(mp.controls.currentPosition) : bar_seek.Maximum;
                     time_now.Text = ((int)mp.controls.currentPosition / 60).ToString("0") + ":" + ((int)mp.controls.currentPosition % 60).ToString("00");
                 }
                 // 再生が終了してたら 初めから再生できるようにする
