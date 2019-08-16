@@ -70,6 +70,8 @@ namespace zerodori_listening_player
         Folder f;
         FolderItem fi;
 
+        ToolTip tt = new ToolTip();
+
 
         public Form1()
         {
@@ -93,18 +95,6 @@ namespace zerodori_listening_player
                     mp.controls.currentPosition = (double)bar_seek.Value;
                 }
             };
-
-            // ボタンをマウスオーバー時のテキスト表示
-            // TODO
-            ToolTip tt = new ToolTip();
-            tt.InitialDelay = 0;
-            tt.SetToolTip(button_prev, "prev(P)");
-            tt.SetToolTip(button_rewind, "rewind(←)");
-            tt.SetToolTip(button_start_stop, "start/stop( )");
-            tt.SetToolTip(button_forward, "forward(→)");
-            tt.SetToolTip(button_next, "next(N)");
-            tt.SetToolTip(button_loop, "loop(L)");
-            tt.SetToolTip(button_auto, "auto(A)");
 
             // メインタイマーの設定
             timer_main.Interval = 100;
@@ -233,6 +223,9 @@ namespace zerodori_listening_player
             Enum.TryParse<Keys>(ConfigurationManager.AppSettings["key_start_stop"], out key_start_stop);
             Enum.TryParse<Keys>(ConfigurationManager.AppSettings["key_restart"], out key_restart);
             this.Opacity = double.Parse(ConfigurationManager.AppSettings["opacity"]);
+
+            // ボタンをマウスオーバー時のテキスト表示
+            set_tooltip();
 
             init();
         }
@@ -585,6 +578,7 @@ namespace zerodori_listening_player
             form2.StartPosition = FormStartPosition.CenterParent;
             form2.ShowDialog(this);
             form2.Dispose();
+            set_tooltip();
         }
 
         // 音声ファイルの再読み込み
@@ -620,6 +614,19 @@ namespace zerodori_listening_player
         private void OpenFileLocationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(mp3_dir);
+        }
+
+        // ツールチップの設定
+        private void set_tooltip()
+        {
+            tt.InitialDelay = 0;
+            tt.SetToolTip(button_prev, "prev(" + key_prev.ToString() + ")");
+            tt.SetToolTip(button_rewind, "rewind(" + key_rewind.ToString() + ")");
+            tt.SetToolTip(button_start_stop, "start/stop(" + key_start_stop.ToString() + ")");
+            tt.SetToolTip(button_forward, "forward(" + key_forward.ToString() + ")");
+            tt.SetToolTip(button_next, "next(" + key_next.ToString() + ")");
+            tt.SetToolTip(button_loop, "loop(" + key_loop.ToString() + ")");
+            tt.SetToolTip(button_auto, "auto(" + key_auto.ToString() + ")");
         }
     }
 
