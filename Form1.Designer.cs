@@ -49,8 +49,9 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.top_most = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadSoundsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label_volume = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.bar_seek)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar_volume)).BeginInit();
@@ -137,19 +138,18 @@
             // mp3_number
             // 
             this.mp3_number.Font = new System.Drawing.Font("MS Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.mp3_number.Location = new System.Drawing.Point(41, 12);
-            this.mp3_number.MaxLength = 3;
+            this.mp3_number.Location = new System.Drawing.Point(39, 12);
+            this.mp3_number.MaxLength = 32;
             this.mp3_number.Name = "mp3_number";
-            this.mp3_number.Size = new System.Drawing.Size(40, 20);
+            this.mp3_number.Size = new System.Drawing.Size(73, 20);
             this.mp3_number.TabIndex = 7;
             this.mp3_number.Text = "001";
-            this.mp3_number.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.mp3_number.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mp3_number_KeyPress);
             // 
             // pictureBox1
             // 
             this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(22, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(20, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(20, 20);
             this.pictureBox1.TabIndex = 8;
@@ -171,7 +171,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(100, 16);
+            this.label1.Location = new System.Drawing.Point(128, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(36, 13);
             this.label1.TabIndex = 10;
@@ -179,7 +179,7 @@
             // 
             // bar_volume
             // 
-            this.bar_volume.Location = new System.Drawing.Point(213, 12);
+            this.bar_volume.Location = new System.Drawing.Point(230, 8);
             this.bar_volume.Maximum = 100;
             this.bar_volume.Name = "bar_volume";
             this.bar_volume.Size = new System.Drawing.Size(67, 45);
@@ -218,7 +218,7 @@
             "1.5",
             "1.75",
             "2.0"});
-            this.list_speed.Location = new System.Drawing.Point(139, 12);
+            this.list_speed.Location = new System.Drawing.Point(162, 12);
             this.list_speed.Name = "list_speed";
             this.list_speed.Size = new System.Drawing.Size(56, 21);
             this.list_speed.TabIndex = 15;
@@ -256,35 +256,45 @@
             this.openFileLocationToolStripMenuItem,
             this.settingToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 114);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(174, 92);
             // 
             // top_most
             // 
             this.top_most.Name = "top_most";
-            this.top_most.Size = new System.Drawing.Size(180, 22);
+            this.top_most.Size = new System.Drawing.Size(173, 22);
             this.top_most.Text = "Top Most";
             this.top_most.Click += new System.EventHandler(this.top_most_Click);
             // 
             // reloadSoundsToolStripMenuItem
             // 
             this.reloadSoundsToolStripMenuItem.Name = "reloadSoundsToolStripMenuItem";
-            this.reloadSoundsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reloadSoundsToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.reloadSoundsToolStripMenuItem.Text = "Reload Sounds";
             this.reloadSoundsToolStripMenuItem.Click += new System.EventHandler(this.ReloadSoundsToolStripMenuItem_Click);
-            // 
-            // settingToolStripMenuItem
-            // 
-            this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
-            this.settingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.settingToolStripMenuItem.Text = "Setting";
-            this.settingToolStripMenuItem.Click += new System.EventHandler(this.settingToolStripMenuItem_Click);
             // 
             // openFileLocationToolStripMenuItem
             // 
             this.openFileLocationToolStripMenuItem.Name = "openFileLocationToolStripMenuItem";
-            this.openFileLocationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openFileLocationToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.openFileLocationToolStripMenuItem.Text = "Open File Location";
             this.openFileLocationToolStripMenuItem.Click += new System.EventHandler(this.OpenFileLocationToolStripMenuItem_Click);
+            // 
+            // settingToolStripMenuItem
+            // 
+            this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
+            this.settingToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.settingToolStripMenuItem.Text = "Setting";
+            this.settingToolStripMenuItem.Click += new System.EventHandler(this.settingToolStripMenuItem_Click);
+            // 
+            // label_volume
+            // 
+            this.label_volume.AutoSize = true;
+            this.label_volume.Location = new System.Drawing.Point(243, 30);
+            this.label_volume.Name = "label_volume";
+            this.label_volume.Size = new System.Drawing.Size(41, 13);
+            this.label_volume.TabIndex = 18;
+            this.label_volume.Text = "volume";
+            this.label_volume.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
@@ -292,6 +302,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(304, 153);
             this.ContextMenuStrip = this.contextMenuStrip1;
+            this.Controls.Add(this.label_volume);
             this.Controls.Add(this.button_auto);
             this.Controls.Add(this.label_title);
             this.Controls.Add(this.list_speed);
@@ -346,6 +357,7 @@
         private System.Windows.Forms.ToolStripMenuItem settingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reloadSoundsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openFileLocationToolStripMenuItem;
+        private System.Windows.Forms.Label label_volume;
     }
 }
 

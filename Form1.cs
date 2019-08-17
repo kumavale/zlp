@@ -331,10 +331,10 @@ namespace zerodori_listening_player
         {
             char key = e.KeyChar;
 
-            if ((e.KeyChar < '0' || '9' < e.KeyChar) && e.KeyChar != '\b')
-            {
-                e.Handled = true;
-            }
+            //if ((e.KeyChar < '0' || '9' < e.KeyChar) && e.KeyChar != '\b')
+            //{
+            //    e.Handled = true;
+            //}
 
             //if('０' <= key && key <= '９')
             //{
@@ -346,9 +346,12 @@ namespace zerodori_listening_player
             if (e.KeyChar == (char)Keys.Enter)
             {
                 button_start_stop.Focus();
-                mp3_number.Text = mp3_number.Text.PadLeft(3, '0');
-                mp3_now = Array.FindIndex(mp3_file_paths,
-                    s => Path.GetFileName(s) == mp3_number.Text + ".mp3") + 1;
+                mp3_now = get_filepath_idx(mp3_number.Text) + 1;
+
+                if (mp3_now == 0)
+                {
+                    mp3_now = get_filepath_idx(mp3_number.Text.PadLeft(3, '0')) + 1;
+                }
 
                 if (mp3_now < 1 || mp3_count < mp3_now)
                 {
@@ -627,6 +630,18 @@ namespace zerodori_listening_player
             tt.SetToolTip(button_next, "next(" + key_next.ToString() + ")");
             tt.SetToolTip(button_loop, "loop(" + key_loop.ToString() + ")");
             tt.SetToolTip(button_auto, "auto(" + key_auto.ToString() + ")");
+        }
+
+        /// <summary>
+        /// Get index of mp3 file from mp3_file_paths.
+        /// </summary>
+        /// <param name="filename">search mp3 file name</param>
+        /// <returns>The zero-based index of the first occurrence of an element that matches the conditions defined by match, if found;
+        /// otherwise, -1.</returns>
+        private int get_filepath_idx(string filename)
+        {
+            return Array.FindIndex(mp3_file_paths,
+                s => Path.GetFileName(s) == filename + ".mp3");
         }
     }
 
