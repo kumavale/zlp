@@ -144,7 +144,6 @@
             this.mp3_number.Size = new System.Drawing.Size(73, 20);
             this.mp3_number.TabIndex = 7;
             this.mp3_number.Text = "001";
-            this.mp3_number.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mp3_number_KeyPress);
             // 
             // pictureBox1
             // 

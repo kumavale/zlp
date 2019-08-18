@@ -71,6 +71,7 @@ namespace zerodori_listening_player
         FolderItem fi;
 
         ToolTip tt = new ToolTip();
+        AutoCompleteStringCollection autoComplete = new AutoCompleteStringCollection();
 
 
         public Form1()
@@ -227,6 +228,12 @@ namespace zerodori_listening_player
             // ボタンをマウスオーバー時のテキスト表示
             set_tooltip();
 
+            // オートコンプリートの設定
+            mp3_number.AutoCompleteCustomSource = autoComplete;
+            mp3_number.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            mp3_number.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            set_autocomplete_list();
+
             init();
         }
 
@@ -327,46 +334,6 @@ namespace zerodori_listening_player
             bar_seek.Maximum = mp3_length;
         }
 
-        private void mp3_number_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            char key = e.KeyChar;
-
-            //if ((e.KeyChar < '0' || '9' < e.KeyChar) && e.KeyChar != '\b')
-            //{
-            //    e.Handled = true;
-            //}
-
-            //if('０' <= key && key <= '９')
-            //{
-            //    key = (char)(key - '０' + '0');
-            //    mp3_number.Text += key;
-            //    this.mp3_number.Select(this.mp3_number.Text.Length, 0);
-            //}
-
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                button_start_stop.Focus();
-                mp3_now = get_filepath_idx(mp3_number.Text) + 1;
-
-                if (mp3_now == 0)
-                {
-                    mp3_now = get_filepath_idx(mp3_number.Text.PadLeft(3, '0')) + 1;
-                }
-
-                if (mp3_now < 1 || mp3_count < mp3_now)
-                {
-                    mp3_number.Text = "001";
-                    mp3_now = 1;
-                }
-
-                mp3_number.Select(mp3_number.Text.Length, 0);
-
-                change_mp3();
-                set_time();
-                set_title();
-            }
-        }
-
         private void bar_volume_Scroll(object sender, EventArgs e)
         {
             mp.settings.volume = bar_volume.Value;
@@ -377,6 +344,36 @@ namespace zerodori_listening_player
             Window = System.Security.Permissions.UIPermissionWindow.AllWindows)]
         protected override bool ProcessDialogKey(Keys keyData)
         {
+            // 音声ファイルの指定時の動作
+            if (mp3_number.Focused)
+            {
+                if ((keyData & Keys.KeyCode) == Keys.Enter)
+                {
+                    button_start_stop.Focus();
+                    mp3_now = get_filepath_idx(mp3_number.Text.Trim()) + 1;
+
+                    if (mp3_now == 0)
+                    {
+                        mp3_now = get_filepath_idx(mp3_number.Text.Trim().PadLeft(3, '0')) + 1;
+                    }
+
+                    if (mp3_now < 1 || mp3_count < mp3_now)
+                    {
+                        mp3_number.Text = "001";
+                        mp3_now = 1;
+                    }
+
+                    mp3_number.Select(mp3_number.Text.Length, 0);
+
+                    change_mp3();
+                    set_time();
+                    set_title();
+                    return true;
+                }
+
+                return base.ProcessDialogKey(keyData);
+            }
+
             // XX秒戻り
             if ((keyData & Keys.KeyCode) == key_rewind)
             {
@@ -611,6 +608,7 @@ namespace zerodori_listening_player
                 mp3_now = 1;
             mp3_file = Path.GetFileName(mp3_file_paths[mp3_now - 1]);
             shift_sound(SHIFT.NONE);
+            set_autocomplete_list();
         }
 
         // 音声ファイルのフォルダを開く
@@ -642,6 +640,17 @@ namespace zerodori_listening_player
         {
             return Array.FindIndex(mp3_file_paths,
                 s => Path.GetFileName(s) == filename + ".mp3");
+        }
+
+        private void set_autocomplete_list()
+        {
+            string path;
+            autoComplete.Clear();
+            foreach(string str in mp3_file_paths)
+            {
+                path = Path.GetFileName(str);
+                autoComplete.Add(path.Substring(0, path.IndexOf(".")));
+            }
         }
     }
 
