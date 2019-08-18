@@ -1,6 +1,6 @@
 # Zerodori Listening Player
 ![stable](https://img.shields.io/badge/build-passing-success.svg)
-![version](https://img.shields.io/badge/version-0.0.2-success.svg)
+![version](https://img.shields.io/badge/version-0.0.3-success.svg)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
   
 [TOEIC(R)L&Rテスト リスニング ゼロからスコアが稼げるドリル](https://ec.alc.co.jp/book/7019027/)(通称:ゼロドリ) 付属の音声ファイル専用のmp3プレイヤー  
@@ -9,7 +9,7 @@
 ## その他再生可能なもの(確認済)
 * [はじめて受けるTOEIC(R) L&Rテスト全パート完全攻略](https://ec.alc.co.jp/book/7018001/)  
 
-※ `XXX.mp3` (XXXは整数) フォーマットの音声ファイルであれば, 他本でもおそらく実行可能(未検証)
+※ 他本でもおそらく実行可能(未検証)
 
 
 ## Usage
@@ -52,5 +52,5 @@
 On/Off
 * 各種設定  
 巻き戻し/早送りの秒数  
-ショートカットキー  
 透明度  
+ショートカットキー  
