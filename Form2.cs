@@ -53,6 +53,7 @@ namespace zerodori_listening_player
             rewind_sec.Text  = Form1.rewind_sec.ToString();
             forward_sec.Text = Form1.forward_sec.ToString();
             trackBar_opacity.Value = (int)(f1.Opacity * 100);
+            label_mp3dir.Text = Form1.Mp3_dir;
             // Shortcuts
             textBox_sc_speed_up.Text = Form1.key_speed_up.ToString();
             textBox_sc_speed_down.Text = Form1.key_speed_down.ToString();
@@ -162,6 +163,7 @@ namespace zerodori_listening_player
                 rewind_sec.Text  = "5";
                 forward_sec.Text = "5";
                 trackBar_opacity.Value = 100;
+                label_mp3dir.Text = System.IO.Path.GetFullPath(@"sounds");
             }
             else if (current_item == items.SHORTCUTS)
             {
@@ -195,6 +197,15 @@ namespace zerodori_listening_player
             }
 
             f1.Opacity = trackBar_opacity.Value * 0.01;
+
+            if (System.IO.Directory.Exists(label_mp3dir.Text))
+            {
+                Form1.Mp3_dir = label_mp3dir.Text;
+            }
+            else
+            {
+                ;
+            }
 
 
             // Shortcuts
@@ -330,7 +341,10 @@ namespace zerodori_listening_player
             rewind_sec.Visible =
             forward_sec.Visible =
             label_opacity.Visible =
-            trackBar_opacity.Visible = v;
+            trackBar_opacity.Visible =
+            label_filepath.Visible =
+            button_filepath.Visible =
+            label_mp3dir.Visible = v;
         }
 
         // Shortcutsの項目表示
@@ -570,6 +584,26 @@ namespace zerodori_listening_player
                     e.Cancel = true;
                 }
             }
+        }
+
+        private void Button_filepath_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.Description = "Select mp3 file directory";
+            fbd.SelectedPath = Form1.Mp3_dir;
+            fbd.ShowNewFolderButton = true;
+
+            if (fbd.ShowDialog(this) == DialogResult.OK)
+            {
+                label_mp3dir.Text = fbd.SelectedPath;
+            }
+
+            fbd.Dispose();
+        }
+
+        private void Label_mp3dir_TextChanged(object sender, EventArgs e)
+        {
+            changed(true);
         }
     }
 }

@@ -36,7 +36,6 @@ namespace zerodori_listening_player
 
 
         const int TITLE  = 21;
-        const int SHARP  = 26;
         const int LENGTH = 27;
 
         enum SHIFT
@@ -49,19 +48,26 @@ namespace zerodori_listening_player
         Timer timer_main = new Timer();
         Timer timer_label = new Timer();
 
-        bool is_loop;                      // ループ再生のon/off
-        bool playing;                      // 再生中か否か
-        bool auto_play;                    // 自動で次の音声へ
-        byte freeze = 0;                   // タイトルラベルをスクロールしない時間
-        bool freeze2 = false;              // ラベルスクロール後に停止する時間を管理
-        int speed_idx;                     // 再生スピードのインデックスを管理
+        bool is_loop;                       // ループ再生のon/off
+        bool playing;                       // 再生中か否か
+        bool auto_play;                     // 自動で次の音声へ
+        byte freeze = 0;                    // タイトルラベルをスクロールしない時間
+        bool freeze2 = false;               // ラベルスクロール後に停止する時間を管理
+        int speed_idx;                      // 再生スピードのインデックスを管理
 
-        const string mp3_dir = @"sounds";  // 音声ファイルを格納するディレクトリ
-        string mp3_file;                   // 現在選択されている音声ファイル名
-        string[] mp3_file_paths;           // 全ての音声ファイルパス
-        int mp3_now;                       // 現在選択されている番号
-        int mp3_length;                    // 再生時間(秒)
-        int mp3_count;                     // 音声ファイルの最大数(追加可能)
+        static string mp3_dir = @"sounds";  // 音声ファイルを格納するディレクトリ
+        string mp3_file;                    // 現在選択されている音声ファイル名
+        string[] mp3_file_paths;            // 全ての音声ファイルパス
+        int mp3_now;                        // 現在選択されている番号
+        int mp3_length;                     // 再生時間(秒)
+        int mp3_count;                      // 音声ファイルの最大数(追加可能)
+
+
+        public static string Mp3_dir
+        {
+            set { mp3_dir = value; }
+            get { return mp3_dir; }
+        }
 
 
         WindowsMediaPlayer mp = new WindowsMediaPlayer();
@@ -133,8 +139,8 @@ namespace zerodori_listening_player
             timer_main.Start();
 
             // ラベルスクロール用タイマーの設定
-            timer_label.Interval = 200;
-            timer_main.Tick += delegate
+            timer_label.Interval = 100;
+            timer_label.Tick += delegate
             {
                 if (label_title.Size.Width > this.Width) {
                     if (freeze < 15) {
@@ -174,26 +180,11 @@ namespace zerodori_listening_player
             playing = false;
             auto_play = false;
             mp3_now = 1;
+            mp3_dir = Path.GetFullPath(mp3_dir);
 
             // 音声ファイル一覧の読み込み
-            mp3_file_paths = Directory.GetFiles(mp3_dir, "*.mp3", SearchOption.AllDirectories);
-            List<string> list = new List<string>();
-            list.AddRange(mp3_file_paths);
-            foreach(string p in mp3_file_paths) {
-                if (Regex.IsMatch(p, ".ignore/*"))
-                    list.Remove(p);
-            }
-            mp3_file_paths = list.ToArray();
-            mp3_count = mp3_file_paths.Length;
-            Array.Sort(mp3_file_paths, new SortByNumber());
-            if (mp3_count == 0)
-            {
-                MessageBox.Show("音声ファイルが見つかりません",
-                    "error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                Application.Exit();
-            }
+            mp3_dir = Path.GetFullPath(ConfigurationManager.AppSettings["filepath"]);
+            reload_sounds();
 
             // 前回の設定を読み込み, 適用
             mp3_now = int.Parse(ConfigurationManager.AppSettings["now"]);
@@ -556,6 +547,7 @@ namespace zerodori_listening_player
             cfg.AppSettings.Settings["key_start_stop"].Value = key_start_stop.ToString();
             cfg.AppSettings.Settings["key_restart"].Value = key_restart.ToString();
             cfg.AppSettings.Settings["opacity"].Value = this.Opacity.ToString();
+            cfg.AppSettings.Settings["filepath"].Value = mp3_dir;
 
             cfg.Save();
         }
@@ -574,11 +566,19 @@ namespace zerodori_listening_player
 
         private void settingToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            playing = false;
+            mp_ctl();
             Form2 form2 = new Form2(this);
             form2.StartPosition = FormStartPosition.CenterParent;
             form2.ShowDialog(this);
             form2.Dispose();
             set_tooltip();
+            reload_sounds();
+            if (mp3_now > mp3_count)
+                mp3_now = 1;
+            mp3_file = Path.GetFileName(mp3_file_paths[mp3_now - 1]);
+            shift_sound(SHIFT.NONE);
+            set_autocomplete_list();
         }
 
         // 音声ファイルの再読み込み
@@ -586,6 +586,16 @@ namespace zerodori_listening_player
         {
             playing = false;
             mp_ctl();
+            reload_sounds();
+            if (mp3_now > mp3_count)
+                mp3_now = 1;
+            mp3_file = Path.GetFileName(mp3_file_paths[mp3_now - 1]);
+            shift_sound(SHIFT.NONE);
+            set_autocomplete_list();
+        }
+
+        private void reload_sounds()
+        {
             mp3_file_paths = Directory.GetFiles(mp3_dir, "*.mp3", SearchOption.AllDirectories);
             List<string> list = new List<string>();
             list.AddRange(mp3_file_paths);
@@ -604,11 +614,6 @@ namespace zerodori_listening_player
                     MessageBoxIcon.Error);
                 Application.Exit();
             }
-            if (mp3_now > mp3_count)
-                mp3_now = 1;
-            mp3_file = Path.GetFileName(mp3_file_paths[mp3_now - 1]);
-            shift_sound(SHIFT.NONE);
-            set_autocomplete_list();
         }
 
         // 音声ファイルのフォルダを開く

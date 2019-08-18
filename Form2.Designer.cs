@@ -78,6 +78,9 @@
             this.textBox_sc_speed_up = new System.Windows.Forms.TextBox();
             this.label_opacity = new System.Windows.Forms.Label();
             this.trackBar_opacity = new System.Windows.Forms.TrackBar();
+            this.label_filepath = new System.Windows.Forms.Label();
+            this.button_filepath = new System.Windows.Forms.Button();
+            this.label_mp3dir = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.picture_icon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_opacity)).BeginInit();
             this.SuspendLayout();
@@ -671,11 +674,43 @@
             this.trackBar_opacity.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar_opacity.ValueChanged += new System.EventHandler(this.Application_TextChanged);
             // 
+            // label_filepath
+            // 
+            this.label_filepath.AutoSize = true;
+            this.label_filepath.Location = new System.Drawing.Point(118, 100);
+            this.label_filepath.Name = "label_filepath";
+            this.label_filepath.Size = new System.Drawing.Size(47, 13);
+            this.label_filepath.TabIndex = 50;
+            this.label_filepath.Text = "File path";
+            // 
+            // button_filepath
+            // 
+            this.button_filepath.Location = new System.Drawing.Point(284, 114);
+            this.button_filepath.Name = "button_filepath";
+            this.button_filepath.Size = new System.Drawing.Size(28, 20);
+            this.button_filepath.TabIndex = 52;
+            this.button_filepath.TabStop = false;
+            this.button_filepath.Text = "...";
+            this.button_filepath.UseVisualStyleBackColor = true;
+            this.button_filepath.Click += new System.EventHandler(this.Button_filepath_Click);
+            // 
+            // label_mp3dir
+            // 
+            this.label_mp3dir.Location = new System.Drawing.Point(141, 114);
+            this.label_mp3dir.Name = "label_mp3dir";
+            this.label_mp3dir.Size = new System.Drawing.Size(137, 20);
+            this.label_mp3dir.TabIndex = 53;
+            this.label_mp3dir.TabStop = false;
+            this.label_mp3dir.TextChanged += new System.EventHandler(this.Label_mp3dir_TextChanged);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(330, 297);
+            this.Controls.Add(this.label_mp3dir);
+            this.Controls.Add(this.button_filepath);
+            this.Controls.Add(this.label_filepath);
             this.Controls.Add(this.trackBar_opacity);
             this.Controls.Add(this.label_opacity);
             this.Controls.Add(this.button_sc_cross_speed_up);
@@ -792,5 +827,8 @@
         private System.Windows.Forms.TextBox textBox_sc_speed_up;
         private System.Windows.Forms.Label label_opacity;
         private System.Windows.Forms.TrackBar trackBar_opacity;
+        private System.Windows.Forms.Label label_filepath;
+        private System.Windows.Forms.Button button_filepath;
+        private System.Windows.Forms.TextBox label_mp3dir;
     }
 }
