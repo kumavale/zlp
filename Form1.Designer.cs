@@ -51,6 +51,7 @@
             this.reloadSoundsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label_volume = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.bar_seek)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -253,37 +254,45 @@
             this.top_most,
             this.reloadSoundsToolStripMenuItem,
             this.openFileLocationToolStripMenuItem,
-            this.settingToolStripMenuItem});
+            this.settingToolStripMenuItem,
+            this.timerToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(174, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 136);
             // 
             // top_most
             // 
             this.top_most.Name = "top_most";
-            this.top_most.Size = new System.Drawing.Size(173, 22);
+            this.top_most.Size = new System.Drawing.Size(180, 22);
             this.top_most.Text = "Top Most";
             this.top_most.Click += new System.EventHandler(this.top_most_Click);
             // 
             // reloadSoundsToolStripMenuItem
             // 
             this.reloadSoundsToolStripMenuItem.Name = "reloadSoundsToolStripMenuItem";
-            this.reloadSoundsToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.reloadSoundsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.reloadSoundsToolStripMenuItem.Text = "Reload Sounds";
             this.reloadSoundsToolStripMenuItem.Click += new System.EventHandler(this.ReloadSoundsToolStripMenuItem_Click);
             // 
             // openFileLocationToolStripMenuItem
             // 
             this.openFileLocationToolStripMenuItem.Name = "openFileLocationToolStripMenuItem";
-            this.openFileLocationToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.openFileLocationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openFileLocationToolStripMenuItem.Text = "Open File Location";
             this.openFileLocationToolStripMenuItem.Click += new System.EventHandler(this.OpenFileLocationToolStripMenuItem_Click);
             // 
             // settingToolStripMenuItem
             // 
             this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
-            this.settingToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.settingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.settingToolStripMenuItem.Text = "Setting";
             this.settingToolStripMenuItem.Click += new System.EventHandler(this.settingToolStripMenuItem_Click);
+            // 
+            // timerToolStripMenuItem
+            // 
+            this.timerToolStripMenuItem.Name = "timerToolStripMenuItem";
+            this.timerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.timerToolStripMenuItem.Text = "Timer";
+            this.timerToolStripMenuItem.Click += new System.EventHandler(this.TimerToolStripMenuItem_Click);
             // 
             // label_volume
             // 
@@ -357,6 +366,7 @@
         private System.Windows.Forms.ToolStripMenuItem reloadSoundsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openFileLocationToolStripMenuItem;
         private System.Windows.Forms.Label label_volume;
+        private System.Windows.Forms.ToolStripMenuItem timerToolStripMenuItem;
     }
 }
 

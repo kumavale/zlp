@@ -657,6 +657,12 @@ namespace zerodori_listening_player
                 autoComplete.Add(path.Substring(0, path.IndexOf(".")));
             }
         }
+
+        private void TimerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            KitchenTimer kt = new KitchenTimer();
+            kt.Show();
+        }
     }
 
     public class SortByNumber : IComparer
