@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using System.Configuration;
+
 namespace zerodori_listening_player
 {
     public partial class KitchenTimer : Form
@@ -33,9 +35,11 @@ namespace zerodori_listening_player
             current_item = items.MAIN;
             visible_setting(false);
 
-            numericUpDown_hour.Value =
-            numericUpDown_min.Value =
-            numericUpDown_sec.Value = 0;
+            int sec = int.Parse(ConfigurationManager.AppSettings["timer_sec"]);
+
+            numericUpDown_hour.Value = sec / 3600;
+            numericUpDown_min.Value = sec % 3600 / 60;
+            numericUpDown_sec.Value = sec % 60;
 
             set_timer();
             rearrangement();
@@ -193,6 +197,20 @@ namespace zerodori_listening_player
         {
             this.TopMost = !this.TopMost;
             topMostToolStripMenuItem.Checked = !topMostToolStripMenuItem.Checked;
+        }
+
+        private void KitchenTimer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Configuration cfg = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+            int h = (int)numericUpDown_hour.Value;
+            int m = (int)numericUpDown_min.Value;
+            int s = (int)numericUpDown_sec.Value;
+            sec = h * 3600 + m * 60 + s;
+
+            cfg.AppSettings.Settings["timer_sec"].Value = sec.ToString();
+
+            cfg.Save();
         }
     }
 }

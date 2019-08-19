@@ -167,12 +167,12 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.topMostToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(124, 26);
             // 
             // topMostToolStripMenuItem
             // 
             this.topMostToolStripMenuItem.Name = "topMostToolStripMenuItem";
-            this.topMostToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.topMostToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.topMostToolStripMenuItem.Text = "Top Most";
             this.topMostToolStripMenuItem.Click += new System.EventHandler(this.TopMostToolStripMenuItem_Click);
             // 
@@ -191,6 +191,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "KitchenTimer";
             this.Text = "zlp - Timer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.KitchenTimer_FormClosing);
             this.SizeChanged += new System.EventHandler(this.KitchenTimer_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_hour)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_min)).EndInit();
