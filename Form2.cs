@@ -24,6 +24,8 @@ namespace zerodori_listening_player
         readonly Color white = Color.White;
         readonly Color none  = Color.Transparent;
 
+        readonly string init_mp3dir;
+
         Form1 f1;
 
         enum items {
@@ -53,7 +55,7 @@ namespace zerodori_listening_player
             rewind_sec.Text  = Form1.rewind_sec.ToString();
             forward_sec.Text = Form1.forward_sec.ToString();
             trackBar_opacity.Value = (int)(f1.Opacity * 100);
-            label_mp3dir.Text = Form1.Mp3_dir;
+            init_mp3dir = label_mp3dir.Text = Form1.Mp3_dir;
             // Shortcuts
             textBox_sc_speed_up.Text = Form1.key_speed_up.ToString();
             textBox_sc_speed_down.Text = Form1.key_speed_down.ToString();
@@ -564,7 +566,7 @@ namespace zerodori_listening_player
         {
             if(e.CloseReason == CloseReason.UserClosing && this.Text == changing_title)
             {
-                string message = "Do you want to save changes?";
+                const string message = "Do you want to save changes?";
                 DialogResult result = MessageBox.Show(
                     message,
                     "zlp",
@@ -583,6 +585,11 @@ namespace zerodori_listening_player
                 {
                     e.Cancel = true;
                 }
+            }
+
+            if (init_mp3dir != label_mp3dir.Text)
+            {
+                Form1.mp3dir_changed = true;
             }
         }
 

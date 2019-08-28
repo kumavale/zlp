@@ -71,7 +71,7 @@
             this.button_start_stop.Size = new System.Drawing.Size(32, 32);
             this.button_start_stop.TabIndex = 0;
             this.button_start_stop.UseVisualStyleBackColor = false;
-            this.button_start_stop.Click += new System.EventHandler(this.button_start_stop_Click);
+            this.button_start_stop.Click += new System.EventHandler(this.Button_start_stop_Click);
             // 
             // button_rewind
             // 
@@ -84,7 +84,7 @@
             this.button_rewind.Size = new System.Drawing.Size(32, 32);
             this.button_rewind.TabIndex = 1;
             this.button_rewind.UseVisualStyleBackColor = false;
-            this.button_rewind.Click += new System.EventHandler(this.button_rewind_Click);
+            this.button_rewind.Click += new System.EventHandler(this.Button_rewind_Click);
             // 
             // button_forward
             // 
@@ -97,7 +97,7 @@
             this.button_forward.Size = new System.Drawing.Size(32, 32);
             this.button_forward.TabIndex = 2;
             this.button_forward.UseVisualStyleBackColor = false;
-            this.button_forward.Click += new System.EventHandler(this.button_forward_Click);
+            this.button_forward.Click += new System.EventHandler(this.Button_forward_Click);
             // 
             // button_next
             // 
@@ -110,7 +110,7 @@
             this.button_next.Size = new System.Drawing.Size(32, 32);
             this.button_next.TabIndex = 3;
             this.button_next.UseVisualStyleBackColor = false;
-            this.button_next.Click += new System.EventHandler(this.button_next_Click);
+            this.button_next.Click += new System.EventHandler(this.Button_next_Click);
             // 
             // button_prev
             // 
@@ -123,7 +123,7 @@
             this.button_prev.Size = new System.Drawing.Size(32, 32);
             this.button_prev.TabIndex = 4;
             this.button_prev.UseVisualStyleBackColor = false;
-            this.button_prev.Click += new System.EventHandler(this.button_prev_Click);
+            this.button_prev.Click += new System.EventHandler(this.Button_prev_Click);
             // 
             // bar_seek
             // 
@@ -133,8 +133,8 @@
             this.bar_seek.Size = new System.Drawing.Size(160, 45);
             this.bar_seek.TabIndex = 5;
             this.bar_seek.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.bar_seek.KeyDown += new System.Windows.Forms.KeyEventHandler(this.bar_seek_KeyDown);
-            this.bar_seek.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bar_seek_MouseUp);
+            this.bar_seek.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Bar_seek_KeyDown);
+            this.bar_seek.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Bar_seek_MouseUp);
             // 
             // mp3_number
             // 
@@ -166,7 +166,7 @@
             this.button_loop.Size = new System.Drawing.Size(32, 32);
             this.button_loop.TabIndex = 9;
             this.button_loop.UseVisualStyleBackColor = false;
-            this.button_loop.Click += new System.EventHandler(this.button_loop_Click);
+            this.button_loop.Click += new System.EventHandler(this.Button_loop_Click);
             // 
             // label1
             // 
@@ -186,8 +186,8 @@
             this.bar_volume.TabIndex = 12;
             this.bar_volume.TickStyle = System.Windows.Forms.TickStyle.None;
             this.bar_volume.Value = 50;
-            this.bar_volume.Scroll += new System.EventHandler(this.bar_volume_Scroll);
-            this.bar_volume.KeyDown += new System.Windows.Forms.KeyEventHandler(this.bar_volume_KeyDown);
+            this.bar_volume.Scroll += new System.EventHandler(this.Bar_volume_Scroll);
+            this.bar_volume.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Bar_volume_KeyDown);
             // 
             // time_now
             // 
@@ -222,8 +222,8 @@
             this.list_speed.Name = "list_speed";
             this.list_speed.Size = new System.Drawing.Size(56, 21);
             this.list_speed.TabIndex = 15;
-            this.list_speed.SelectedIndexChanged += new System.EventHandler(this.list_speed_SelectedIndexChanged);
-            this.list_speed.KeyDown += new System.Windows.Forms.KeyEventHandler(this.list_speed_KeyDown);
+            this.list_speed.SelectedIndexChanged += new System.EventHandler(this.List_speed_SelectedIndexChanged);
+            this.list_speed.KeyDown += new System.Windows.Forms.KeyEventHandler(this.List_speed_KeyDown);
             // 
             // label_title
             // 
@@ -246,7 +246,7 @@
             this.button_auto.Size = new System.Drawing.Size(32, 32);
             this.button_auto.TabIndex = 17;
             this.button_auto.UseVisualStyleBackColor = false;
-            this.button_auto.Click += new System.EventHandler(this.button_auto_Click);
+            this.button_auto.Click += new System.EventHandler(this.Button_auto_Click);
             // 
             // contextMenuStrip1
             // 
@@ -254,8 +254,8 @@
             this.top_most,
             this.reloadSoundsToolStripMenuItem,
             this.openFileLocationToolStripMenuItem,
-            this.settingToolStripMenuItem,
-            this.timerToolStripMenuItem});
+            this.timerToolStripMenuItem,
+            this.settingToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(181, 136);
             // 
@@ -264,7 +264,7 @@
             this.top_most.Name = "top_most";
             this.top_most.Size = new System.Drawing.Size(180, 22);
             this.top_most.Text = "Top Most";
-            this.top_most.Click += new System.EventHandler(this.top_most_Click);
+            this.top_most.Click += new System.EventHandler(this.Top_most_Click);
             // 
             // reloadSoundsToolStripMenuItem
             // 
@@ -285,7 +285,7 @@
             this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
             this.settingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.settingToolStripMenuItem.Text = "Setting";
-            this.settingToolStripMenuItem.Click += new System.EventHandler(this.settingToolStripMenuItem_Click);
+            this.settingToolStripMenuItem.Click += new System.EventHandler(this.SettingToolStripMenuItem_Click);
             // 
             // timerToolStripMenuItem
             // 

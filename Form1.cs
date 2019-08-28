@@ -34,6 +34,8 @@ namespace zerodori_listening_player
         public static Keys key_start_stop = Keys.Space;
         public static Keys key_restart = Keys.Enter;
 
+        public static bool mp3dir_changed = false;
+
 
         const int TITLE  = 21;
         const int LENGTH = 27;
@@ -118,14 +120,14 @@ namespace zerodori_listening_player
                 else if (mp.playState == WMPPlayState.wmppsStopped)
                 {
                     playing = false;
-                    mp_ctl();
+                    Mp_ctl();
 
                     // 自動再生が ture なら次の音声へ
                     if (auto_play)
                     {
-                        shift_sound(SHIFT.NEXT);
+                        Shift_sound(SHIFT.NEXT);
                         playing = true;
-                        mp_ctl();
+                        Mp_ctl();
                     }
                 }
 
@@ -184,7 +186,7 @@ namespace zerodori_listening_player
 
             // 音声ファイル一覧の読み込み
             mp3_dir = Path.GetFullPath(ConfigurationManager.AppSettings["filepath"]);
-            reload_sounds();
+            Reload_sounds();
 
             // 前回の設定を読み込み, 適用
             mp3_now = int.Parse(ConfigurationManager.AppSettings["now"]);
@@ -217,30 +219,30 @@ namespace zerodori_listening_player
             this.Opacity = double.Parse(ConfigurationManager.AppSettings["opacity"]);
 
             // ボタンをマウスオーバー時のテキスト表示
-            set_tooltip();
+            Set_tooltip();
 
             // オートコンプリートの設定
             mp3_number.AutoCompleteCustomSource = autoComplete;
             mp3_number.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             mp3_number.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            set_autocomplete_list();
+            Set_autocomplete_list();
 
-            init();
+            Init();
         }
 
-        private void button_start_stop_Click(object sender, EventArgs e)
+        private void Button_start_stop_Click(object sender, EventArgs e)
         {
             playing = !playing;
-            mp_ctl();
+            Mp_ctl();
         }
 
-        private void button_loop_Click(object sender, EventArgs e)
+        private void Button_loop_Click(object sender, EventArgs e)
         {
             is_loop = !is_loop;
             button_loop.BackColor = is_loop ? Color.LightGray : SystemColors.Control;
         }
 
-        private void change_mp3()
+        private void Change_mp3()
         {
             mp3_file = Path.GetFileName(mp3_file_paths[mp3_now - 1]);
             mp.URL = mp3_file_paths[mp3_now - 1];
@@ -253,16 +255,16 @@ namespace zerodori_listening_player
             freeze = 0;
         }
 
-        private void button_next_Click(object sender, EventArgs e)
+        private void Button_next_Click(object sender, EventArgs e)
         {
-            shift_sound(SHIFT.NEXT);
+            Shift_sound(SHIFT.NEXT);
         }
 
-        private void button_prev_Click(object sender, EventArgs e)
+        private void Button_prev_Click(object sender, EventArgs e)
         {
-            shift_sound(SHIFT.PREV);
+            Shift_sound(SHIFT.PREV);
         }
-        private void shift_sound(SHIFT s)
+        private void Shift_sound(SHIFT s)
         {
             if (s == SHIFT.PREV)
             {
@@ -281,27 +283,27 @@ namespace zerodori_listening_player
             bar_seek.Value = 0;
             time_now.Text = "0:00";
             playing = false;
-            mp_ctl();
-            change_mp3();
-            set_title();
-            set_time();
+            Mp_ctl();
+            Change_mp3();
+            Set_title();
+            Set_time();
             bar_seek.Maximum = mp3_length;
             mp.controls.currentPosition = 0;
         }
 
-        private void set_title()
+        private void Set_title()
         {
             label_title.Text = f.GetDetailsOf(fi, TITLE);
         }
 
-        private void set_time()
+        private void Set_time()
         {
             DateTime dt = DateTime.Parse(f.GetDetailsOf(fi, LENGTH));
             time_length.Text = dt.Minute + ":" + (dt.Second<10 ? "0":"") + dt.Second;
             mp3_length = dt.Minute * 60 + dt.Second;
         }
 
-        private void mp_ctl()
+        private void Mp_ctl()
         {
             if (playing)
             {
@@ -315,17 +317,17 @@ namespace zerodori_listening_player
             }
         }
 
-        private void init()
+        private void Init()
         {
             time_now.Text = "0:00";
-            change_mp3();
-            set_title();
-            set_time();
+            Change_mp3();
+            Set_title();
+            Set_time();
             mp.controls.pause();
             bar_seek.Maximum = mp3_length;
         }
 
-        private void bar_volume_Scroll(object sender, EventArgs e)
+        private void Bar_volume_Scroll(object sender, EventArgs e)
         {
             mp.settings.volume = bar_volume.Value;
         }
@@ -341,11 +343,11 @@ namespace zerodori_listening_player
                 if ((keyData & Keys.KeyCode) == Keys.Enter)
                 {
                     button_start_stop.Focus();
-                    mp3_now = get_filepath_idx(mp3_number.Text.Trim()) + 1;
+                    mp3_now = Get_filepath_idx(mp3_number.Text.Trim()) + 1;
 
                     if (mp3_now == 0)
                     {
-                        mp3_now = get_filepath_idx(mp3_number.Text.Trim().PadLeft(3, '0')) + 1;
+                        mp3_now = Get_filepath_idx(mp3_number.Text.Trim().PadLeft(3, '0')) + 1;
                     }
 
                     if (mp3_now < 1 || mp3_count < mp3_now)
@@ -356,9 +358,9 @@ namespace zerodori_listening_player
 
                     mp3_number.Select(mp3_number.Text.Length, 0);
 
-                    change_mp3();
-                    set_time();
-                    set_title();
+                    Change_mp3();
+                    Set_time();
+                    Set_title();
                     return true;
                 }
 
@@ -368,13 +370,13 @@ namespace zerodori_listening_player
             // XX秒戻り
             if ((keyData & Keys.KeyCode) == key_rewind)
             {
-                rewind();
+                Rewind();
             }
 
             // XX秒送り
             if ((keyData & Keys.KeyCode) == key_forward)
             {
-                forward();
+                Forward();
             }
 
             // スピードUp
@@ -400,13 +402,13 @@ namespace zerodori_listening_player
             // 前の音声
             if ((keyData & Keys.KeyCode) == key_prev)
             {
-                shift_sound(SHIFT.PREV);
+                Shift_sound(SHIFT.PREV);
             }
 
             // 次の音声
             if ((keyData & Keys.KeyCode) == key_next)
             {
-                shift_sound(SHIFT.NEXT);
+                Shift_sound(SHIFT.NEXT);
             }
 
             // ループ on/off
@@ -427,7 +429,7 @@ namespace zerodori_listening_player
             if ((keyData & Keys.KeyCode) == key_start_stop)
             {
                 playing = !playing;
-                mp_ctl();
+                Mp_ctl();
             }
 
             // restart
@@ -437,7 +439,7 @@ namespace zerodori_listening_player
                     mp.controls.currentPosition = 0;
                     bar_seek.Value = 0;
                     playing = true;
-                    mp_ctl();
+                    Mp_ctl();
                 }
             }
 
@@ -458,45 +460,45 @@ namespace zerodori_listening_player
             return base.ProcessDialogKey(keyData);
         }
 
-        private void list_speed_KeyDown(object sender, KeyEventArgs e)
+        private void List_speed_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Down || e.KeyCode == Keys.Up || e.KeyCode == Keys.Right || e.KeyCode == Keys.Left)
                 e.Handled = true;
         }
 
-        private void bar_volume_KeyDown(object sender, KeyEventArgs e)
+        private void Bar_volume_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Down || e.KeyCode == Keys.Up || e.KeyCode == Keys.Right || e.KeyCode == Keys.Left)
                 e.Handled = true;
         }
 
-        private void bar_seek_KeyDown(object sender, KeyEventArgs e)
+        private void Bar_seek_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Down || e.KeyCode == Keys.Up || e.KeyCode == Keys.Right || e.KeyCode == Keys.Left)
                 e.Handled = true;
         }
 
-        private void bar_seek_MouseUp(object sender, MouseEventArgs e)
+        private void Bar_seek_MouseUp(object sender, MouseEventArgs e)
         {
             button_start_stop.Focus();
         }
 
-        private void list_speed_SelectedIndexChanged(object sender, EventArgs e)
+        private void List_speed_SelectedIndexChanged(object sender, EventArgs e)
         {
             mp.settings.rate = double.Parse(list_speed.Text);
         }
 
-        private void button_rewind_Click(object sender, EventArgs e)
+        private void Button_rewind_Click(object sender, EventArgs e)
         {
-            rewind();
+            Rewind();
         }
 
-        private void button_forward_Click(object sender, EventArgs e)
+        private void Button_forward_Click(object sender, EventArgs e)
         {
-            forward();
+            Forward();
         }
 
-        private void rewind()
+        private void Rewind()
         {
             int tmp_pos = (int)mp.controls.currentPosition;
             tmp_pos -= rewind_sec;
@@ -509,7 +511,7 @@ namespace zerodori_listening_player
             time_now.Text = (tmp_pos / 60).ToString("0") + ":" + (tmp_pos % 60).ToString("00");
         }
 
-        private void forward()
+        private void Forward()
         {
             int tmp_pos = (int)mp.controls.currentPosition;
             tmp_pos += forward_sec;
@@ -552,49 +554,54 @@ namespace zerodori_listening_player
             cfg.Save();
         }
 
-        private void button_auto_Click(object sender, EventArgs e)
+        private void Button_auto_Click(object sender, EventArgs e)
         {
             auto_play = !auto_play;
             button_auto.BackColor = auto_play ? Color.LightGray : SystemColors.Control;
         }
 
-        private void top_most_Click(object sender, EventArgs e)
+        private void Top_most_Click(object sender, EventArgs e)
         {
             this.TopMost = !this.TopMost;
             top_most.Checked = !top_most.Checked;
         }
 
-        private void settingToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SettingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             playing = false;
-            mp_ctl();
+            Mp_ctl();
             Form2 form2 = new Form2(this);
             form2.StartPosition = FormStartPosition.CenterParent;
             form2.ShowDialog(this);
             form2.Dispose();
-            set_tooltip();
-            reload_sounds();
+
+            if(mp3dir_changed)
+            {
+                mp3dir_changed = false;
+                Reload_sounds();
+                Set_autocomplete_list();
+            }
+            Set_tooltip();
             if (mp3_now > mp3_count)
                 mp3_now = 1;
             mp3_file = Path.GetFileName(mp3_file_paths[mp3_now - 1]);
-            shift_sound(SHIFT.NONE);
-            set_autocomplete_list();
+            Shift_sound(SHIFT.NONE);
         }
 
         // 音声ファイルの再読み込み
         private void ReloadSoundsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             playing = false;
-            mp_ctl();
-            reload_sounds();
+            Mp_ctl();
+            Reload_sounds();
             if (mp3_now > mp3_count)
                 mp3_now = 1;
             mp3_file = Path.GetFileName(mp3_file_paths[mp3_now - 1]);
-            shift_sound(SHIFT.NONE);
-            set_autocomplete_list();
+            Shift_sound(SHIFT.NONE);
+            Set_autocomplete_list();
         }
 
-        private void reload_sounds()
+        private void Reload_sounds()
         {
             mp3_file_paths = Directory.GetFiles(mp3_dir, "*.mp3", SearchOption.AllDirectories);
             List<string> list = new List<string>();
@@ -623,7 +630,7 @@ namespace zerodori_listening_player
         }
 
         // ツールチップの設定
-        private void set_tooltip()
+        private void Set_tooltip()
         {
             tt.InitialDelay = 0;
             tt.SetToolTip(button_prev, "prev(" + key_prev.ToString() + ")");
@@ -641,13 +648,13 @@ namespace zerodori_listening_player
         /// <param name="filename">search mp3 file name</param>
         /// <returns>The zero-based index of the first occurrence of an element that matches the conditions defined by match, if found;
         /// otherwise, -1.</returns>
-        private int get_filepath_idx(string filename)
+        private int Get_filepath_idx(string filename)
         {
             return Array.FindIndex(mp3_file_paths,
                 s => Path.GetFileName(s) == filename + ".mp3");
         }
 
-        private void set_autocomplete_list()
+        private void Set_autocomplete_list()
         {
             string path;
             autoComplete.Clear();
