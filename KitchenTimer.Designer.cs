@@ -150,11 +150,12 @@
             // 
             // label_hms
             // 
-            this.label_hms.Location = new System.Drawing.Point(46, 76);
+            this.label_hms.AutoSize = true;
+            this.label_hms.Location = new System.Drawing.Point(68, 76);
             this.label_hms.Name = "label_hms";
-            this.label_hms.Size = new System.Drawing.Size(222, 16);
+            this.label_hms.Size = new System.Drawing.Size(169, 13);
             this.label_hms.TabIndex = 5;
-            this.label_hms.Text = "        hour                  min                  sec";
+            this.label_hms.Text = "hour                  min                  sec";
             // 
             // timer1
             // 
@@ -198,6 +199,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_sec)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

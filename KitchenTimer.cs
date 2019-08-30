@@ -14,14 +14,14 @@ namespace zerodori_listening_player
 {
     public partial class KitchenTimer : Form
     {
-        enum items
+        enum Items
         {
             MAIN,
             SETTING
         }
 
         private FormWindowState formWindowState;
-        private items current_item;
+        private Items current_item;
         private int sec;
         private bool playing;
 
@@ -32,8 +32,8 @@ namespace zerodori_listening_player
             this.MinimumSize = new Size(320, 192);
             this.formWindowState = this.WindowState;
 
-            current_item = items.MAIN;
-            visible_setting(false);
+            current_item = Items.MAIN;
+            Visible_setting(false);
 
             int sec = int.Parse(ConfigurationManager.AppSettings["timer_sec"]);
 
@@ -41,8 +41,8 @@ namespace zerodori_listening_player
             numericUpDown_min.Value = sec % 3600 / 60;
             numericUpDown_sec.Value = sec % 60;
 
-            set_timer();
-            rearrangement();
+            Set_timer();
+            Rearrangement();
         }
 
         private void KitchenTimer_SizeChanged(object sender, EventArgs e)
@@ -50,11 +50,11 @@ namespace zerodori_listening_player
             if(this.WindowState != FormWindowState.Minimized)
             {
                 this.formWindowState = this.WindowState;
-                rearrangement();
+                Rearrangement();
             }
         }
 
-        private void rearrangement()
+        private void Rearrangement()
         {
             int client_w = ClientSize.Width;
             int client_h = ClientSize.Height;
@@ -77,19 +77,19 @@ namespace zerodori_listening_player
 
         private void Button_main_Click(object sender, EventArgs e)
         {
-            current_item = items.SETTING;
+            current_item = Items.SETTING;
             playing = false;
-            set_image(playing);
-            visible_main(false);
-            visible_setting(true);
+            Set_image(playing);
+            Visible_main(false);
+            Visible_setting(true);
         }
 
-        private void visible_main(bool v)
+        private void Visible_main(bool v)
         {
             button_main.Visible = v;
         }
 
-        private void visible_setting(bool v)
+        private void Visible_setting(bool v)
         {
             numericUpDown_hour.Visible =
             numericUpDown_min.Visible =
@@ -99,21 +99,21 @@ namespace zerodori_listening_player
 
         private void Button_start_Click(object sender, EventArgs e)
         {
-            if (current_item == items.MAIN)
+            if (current_item == Items.MAIN)
             {
                 playing = !playing;
-                set_image(playing);
+                Set_image(playing);
             }
-            else if (current_item == items.SETTING)
+            else if (current_item == Items.SETTING)
             {
-                set_timer();
-                visible_main(true);
-                visible_setting(false);
-                current_item = items.MAIN;
+                Set_timer();
+                Visible_main(true);
+                Visible_setting(false);
+                current_item = Items.MAIN;
             }
         }
 
-        private void set_image(bool p)
+        private void Set_image(bool p)
         {
             if (p)
             {
@@ -125,7 +125,7 @@ namespace zerodori_listening_player
             }
         }
 
-        private void set_timer()
+        private void Set_timer()
         {
             playing = false;
 
@@ -135,10 +135,10 @@ namespace zerodori_listening_player
 
             sec = h * 3600 + m * 60 + s;
 
-            view_timer();
+            View_timer();
         }
 
-        private void view_timer()
+        private void View_timer()
         {
             button_main.Text =
                 (sec / 3600).ToString().PadLeft(2, '0') + ":" +
@@ -183,12 +183,12 @@ namespace zerodori_listening_player
                     this.Activate();
                     System.Media.SystemSounds.Beep.Play();
                     playing = false;
-                    set_image(playing);
+                    Set_image(playing);
                 }
                 else
                 {
                     --sec;
-                    view_timer();
+                    View_timer();
                 }
             }
         }
