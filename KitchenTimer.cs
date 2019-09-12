@@ -212,5 +212,26 @@ namespace zerodori_listening_player
 
             cfg.Save();
         }
+
+        [System.Security.Permissions.UIPermission(
+            System.Security.Permissions.SecurityAction.Demand,
+            Window = System.Security.Permissions.UIPermissionWindow.AllWindows)]
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            // Restart
+            if ((keyData & Keys.KeyCode) == Keys.Enter)
+            {
+                Set_timer();
+                Visible_main(true);
+                Visible_setting(false);
+                current_item = Items.MAIN;
+                playing = true;
+                Set_image(playing);
+
+                return true;
+            }
+
+            return base.ProcessDialogKey(keyData);
+        }
     }
 }
