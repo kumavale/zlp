@@ -50,13 +50,15 @@
             this.top_most = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadSoundsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label_volume = new System.Windows.Forms.Label();
+            this.pictureBox_mosaic = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.bar_seek)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar_volume)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_mosaic)).BeginInit();
             this.SuspendLayout();
             // 
             // button_start_stop
@@ -203,9 +205,9 @@
             this.time_length.AutoSize = true;
             this.time_length.Location = new System.Drawing.Point(240, 128);
             this.time_length.Name = "time_length";
-            this.time_length.Size = new System.Drawing.Size(34, 13);
+            this.time_length.Size = new System.Drawing.Size(28, 13);
             this.time_length.TabIndex = 14;
-            this.time_length.Text = "12:34";
+            this.time_length.Text = "0:00";
             // 
             // list_speed
             // 
@@ -257,42 +259,42 @@
             this.timerToolStripMenuItem,
             this.settingToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 136);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(174, 114);
             // 
             // top_most
             // 
             this.top_most.Name = "top_most";
-            this.top_most.Size = new System.Drawing.Size(180, 22);
+            this.top_most.Size = new System.Drawing.Size(173, 22);
             this.top_most.Text = "Top Most";
             this.top_most.Click += new System.EventHandler(this.Top_most_Click);
             // 
             // reloadSoundsToolStripMenuItem
             // 
             this.reloadSoundsToolStripMenuItem.Name = "reloadSoundsToolStripMenuItem";
-            this.reloadSoundsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reloadSoundsToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.reloadSoundsToolStripMenuItem.Text = "Reload Sounds";
             this.reloadSoundsToolStripMenuItem.Click += new System.EventHandler(this.ReloadSoundsToolStripMenuItem_Click);
             // 
             // openFileLocationToolStripMenuItem
             // 
             this.openFileLocationToolStripMenuItem.Name = "openFileLocationToolStripMenuItem";
-            this.openFileLocationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openFileLocationToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.openFileLocationToolStripMenuItem.Text = "Open File Location";
             this.openFileLocationToolStripMenuItem.Click += new System.EventHandler(this.OpenFileLocationToolStripMenuItem_Click);
-            // 
-            // settingToolStripMenuItem
-            // 
-            this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
-            this.settingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.settingToolStripMenuItem.Text = "Setting";
-            this.settingToolStripMenuItem.Click += new System.EventHandler(this.SettingToolStripMenuItem_Click);
             // 
             // timerToolStripMenuItem
             // 
             this.timerToolStripMenuItem.Name = "timerToolStripMenuItem";
-            this.timerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.timerToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.timerToolStripMenuItem.Text = "Timer";
             this.timerToolStripMenuItem.Click += new System.EventHandler(this.TimerToolStripMenuItem_Click);
+            // 
+            // settingToolStripMenuItem
+            // 
+            this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
+            this.settingToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.settingToolStripMenuItem.Text = "Setting";
+            this.settingToolStripMenuItem.Click += new System.EventHandler(this.SettingToolStripMenuItem_Click);
             // 
             // label_volume
             // 
@@ -304,12 +306,22 @@
             this.label_volume.Text = "volume";
             this.label_volume.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // pictureBox_mosaic
+            // 
+            this.pictureBox_mosaic.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox_mosaic.Location = new System.Drawing.Point(-5, -5);
+            this.pictureBox_mosaic.Name = "pictureBox_mosaic";
+            this.pictureBox_mosaic.Size = new System.Drawing.Size(314, 162);
+            this.pictureBox_mosaic.TabIndex = 19;
+            this.pictureBox_mosaic.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(304, 153);
             this.ContextMenuStrip = this.contextMenuStrip1;
+            this.Controls.Add(this.pictureBox_mosaic);
             this.Controls.Add(this.label_volume);
             this.Controls.Add(this.button_auto);
             this.Controls.Add(this.label_title);
@@ -337,6 +349,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar_volume)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_mosaic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -367,6 +380,7 @@
         private System.Windows.Forms.ToolStripMenuItem openFileLocationToolStripMenuItem;
         private System.Windows.Forms.Label label_volume;
         private System.Windows.Forms.ToolStripMenuItem timerToolStripMenuItem;
+        private System.Windows.Forms.PictureBox pictureBox_mosaic;
     }
 }
 

@@ -39,6 +39,7 @@ namespace zerodori_listening_player
 
         const int TITLE  = 21;
         const int LENGTH = 27;
+        const string RESOURCE = @"resources\";
 
         enum SHIFT
         {
@@ -53,6 +54,7 @@ namespace zerodori_listening_player
         bool is_loop;                       // ループ再生のon/off
         bool playing;                       // 再生中か否か
         bool auto_play;                     // 自動で次の音声へ
+        bool no_sounds;                     // 再生できる音声ファイルがない
         byte freeze = 0;                    // タイトルラベルをスクロールしない時間
         bool freeze2 = false;               // ラベルスクロール後に停止する時間を管理
         int speed_idx;                      // 再生スピードのインデックスを管理
@@ -181,6 +183,7 @@ namespace zerodori_listening_player
             is_loop = false;
             playing = false;
             auto_play = false;
+            no_sounds = true;
             mp3_now = 1;
             mp3_dir = Path.GetFullPath(mp3_dir);
 
@@ -192,7 +195,10 @@ namespace zerodori_listening_player
             mp3_now = int.Parse(ConfigurationManager.AppSettings["now"]);
             if (mp3_now > mp3_count)
                 mp3_now = 1;
-            mp3_file = Path.GetFileName(mp3_file_paths[mp3_now - 1]);
+            if (!no_sounds) {
+                mp3_file = Path.GetFileName(mp3_file_paths[mp3_now - 1]);
+                mp.URL = mp3_file_paths[mp3_now - 1];
+            }
             speed_idx = list_speed.SelectedIndex = int.Parse(ConfigurationManager.AppSettings["speed"]);
             mp.settings.volume = int.Parse(ConfigurationManager.AppSettings["volume"]);
             bar_volume.Value = mp.settings.volume;
@@ -200,7 +206,6 @@ namespace zerodori_listening_player
             button_loop.BackColor = is_loop ? Color.LightGray : SystemColors.Control;
             auto_play = bool.Parse(ConfigurationManager.AppSettings["auto"]);
             button_auto.BackColor = auto_play ? Color.LightGray : SystemColors.Control;
-            mp.URL = mp3_file_paths[mp3_now - 1];
             this.TopMost = top_most.Checked = bool.Parse(ConfigurationManager.AppSettings["top"]);
             rewind_sec = int.Parse(ConfigurationManager.AppSettings["rewind"]);
             forward_sec = int.Parse(ConfigurationManager.AppSettings["forward"]);
@@ -308,23 +313,25 @@ namespace zerodori_listening_player
             if (playing)
             {
                 mp.controls.play();
-                button_start_stop.Image = System.Drawing.Image.FromFile(@"resources\pause.png");
+                button_start_stop.Image = System.Drawing.Image.FromFile(RESOURCE + @"pause.png");
             }
             else
             {
                 mp.controls.pause();
-                button_start_stop.Image = System.Drawing.Image.FromFile(@"resources\regeneration.png");
+                button_start_stop.Image = System.Drawing.Image.FromFile(RESOURCE + @"regeneration.png");
             }
         }
 
         private void Init()
         {
-            time_now.Text = "0:00";
-            Change_mp3();
-            Set_title();
-            Set_time();
-            mp.controls.pause();
-            bar_seek.Maximum = mp3_length;
+            if (!no_sounds) {
+                time_now.Text = "0:00";
+                Change_mp3();
+                Set_title();
+                Set_time();
+                mp.controls.pause();
+                bar_seek.Maximum = mp3_length;
+            }
         }
 
         private void Bar_volume_Scroll(object sender, EventArgs e)
@@ -575,8 +582,7 @@ namespace zerodori_listening_player
             form2.ShowDialog(this);
             form2.Dispose();
 
-            if(mp3dir_changed)
-            {
+            if (mp3dir_changed) {
                 mp3dir_changed = false;
                 Reload_sounds();
                 Set_autocomplete_list();
@@ -584,8 +590,10 @@ namespace zerodori_listening_player
             Set_tooltip();
             if (mp3_now > mp3_count)
                 mp3_now = 1;
-            mp3_file = Path.GetFileName(mp3_file_paths[mp3_now - 1]);
-            Shift_sound(SHIFT.NONE);
+            if (!no_sounds) {
+                mp3_file = Path.GetFileName(mp3_file_paths[mp3_now - 1]);
+                Shift_sound(SHIFT.NONE);
+            }
         }
 
         // 音声ファイルの再読み込み
@@ -596,9 +604,11 @@ namespace zerodori_listening_player
             Reload_sounds();
             if (mp3_now > mp3_count)
                 mp3_now = 1;
-            mp3_file = Path.GetFileName(mp3_file_paths[mp3_now - 1]);
-            Shift_sound(SHIFT.NONE);
-            Set_autocomplete_list();
+            if (!no_sounds) {
+                mp3_file = Path.GetFileName(mp3_file_paths[mp3_now - 1]);
+                Shift_sound(SHIFT.NONE);
+                Set_autocomplete_list();
+            }
         }
 
         private void Reload_sounds()
@@ -619,7 +629,15 @@ namespace zerodori_listening_player
                     "error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
-                Application.Exit();
+                //Application.Exit();
+
+                no_sounds = true;
+                label_title.Text = "";
+                mp3_number.Text = "";
+                pictureBox_mosaic.Visible = true;
+            } else {
+                no_sounds = false;
+                pictureBox_mosaic.Visible = false;
             }
         }
 
