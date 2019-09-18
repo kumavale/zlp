@@ -635,6 +635,7 @@ namespace zerodori_listening_player
                 label_title.Text = "";
                 mp3_number.Text = "";
                 pictureBox_mosaic.Visible = true;
+                contextMenuStrip1.Visible = true;
             } else {
                 no_sounds = false;
                 pictureBox_mosaic.Visible = false;

@@ -1,8 +1,8 @@
 # Zerodori Listening Player
 ![stable](https://img.shields.io/badge/build-passing-success.svg)
-![version](https://img.shields.io/badge/version-0.0.5-success.svg)
+![version](https://img.shields.io/badge/version-0.0.6-success.svg)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
-  
+
 [TOEIC(R)L&Rテスト リスニング ゼロからスコアが稼げるドリル](https://ec.alc.co.jp/book/7019027/)(通称:ゼロドリ) 付属の音声ファイル専用のmp3プレイヤー  
 ![ss](https://github.com/yorimoi/zlp/blob/master/resources/ss.png)  
 
