@@ -4,7 +4,7 @@
 [![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
 [TOEIC(R)L&Rテスト リスニング ゼロからスコアが稼げるドリル](https://ec.alc.co.jp/book/7019027/)(通称:ゼロドリ) 付属の音声ファイル専用のmp3プレイヤー  
-![ss](https://github.com/yorimoi/zlp/blob/master/resources/ss.png)  
+![ss](https://github.com/kumavale/zlp/blob/master/resources/ss.png)  
 
 ## その他再生可能なもの(確認済)
 * [TOEIC(R)L&Rテスト 英文法 ゼロからスコアが稼げるドリル](https://ec.alc.co.jp/book/7017060/)  
@@ -20,7 +20,7 @@ To get started on Visual Studio 2019:
 
 1. Install Visual Studio 2019. Select the following Workloads:  
 * .NET desktop development  
-2. Clone the source code (`git clone https://github.com/yorimoi/zlp.git` or Download ZIP).  
+2. Clone the source code (`git clone https://github.com/kumavale/zlp.git` or Download ZIP).  
 3. Open the file explorer. Navigate to project/solution directory  
 4. Search for *.resx. => You will get list of resx files  
 5. Right click the resx file, open the properties and check the option `'Unblock'`  
